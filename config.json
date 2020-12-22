@@ -1,0 +1,7 @@
+{
+    "nmap": {
+        "-n": "--n",
+        "--network": "127.0.0.1",
+        "help": "help='nmap with CIDR network path"
+    }
+}

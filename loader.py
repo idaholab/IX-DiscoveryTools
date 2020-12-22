@@ -25,10 +25,6 @@ class stix_loader:
 
         objects = self.ms_source.query()
 
-        for obj in self.ms._data.values():
-            pprint(type(obj))
-        print(self.ms)
-
         fixed_items = objects[:]
         for index, item in enumerate(objects):
             if type(item) == dict and item['type'] in fix_table:
