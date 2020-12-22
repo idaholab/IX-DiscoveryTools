@@ -20,6 +20,7 @@ class stix_loader:
 
     def read_in(self):
         self.create_blank()
+        print('trying to read in: ', self.in_file)
         self.ms.load_from_file(self.in_file)
         
         # objects = self.ms_source.query()
