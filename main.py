@@ -42,12 +42,13 @@ if __name__ == "__main__":
         sl = stix_loader(in_file=in_file)
         pr = plugin_runner(args, sl)
         pr.run()
+    else:
+        sl = '' #sl required by nmap
+
+    if out_file:
         sl.write_out(out_file)
     ### this should be the code needed to run the rest
 
-    sl = ''
-
-    nm = nmap(args, sl)
-    nm.run()
-
-    # test nmap call
+    if network:
+        nm = nmap(args, sl)
+        nm.run()

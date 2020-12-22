@@ -22,18 +22,17 @@ class stix_loader:
         self.create_blank()
         print('trying to read in: ', self.in_file)
         self.ms.load_from_file(self.in_file)
-        
-        # objects = self.ms_source.query()
 
-        # for obj in self.ms._data.values():
-        #     pprint(type(obj))
-        # print(self.ms)
+        objects = self.ms_source.query()
 
-        #
-        # fixed_items = objects[:]
-        # for index, item in enumerate(objects):
-        #     if type(item) == dict and item['type'] in fix_table:
-        #         fixed_items[index] = fix_table[item['type']](allow_custom=True, **item)
+        for obj in self.ms._data.values():
+            pprint(type(obj))
+        print(self.ms)
+
+        fixed_items = objects[:]
+        for index, item in enumerate(objects):
+            if type(item) == dict and item['type'] in fix_table:
+                fixed_items[index] = fix_table[item['type']](allow_custom=True, **item)
 
         # self.objects = fixed_items
 
