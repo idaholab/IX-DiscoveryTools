@@ -30,12 +30,17 @@ class nmap:
                 host.address))
 
         for serv in host.services:
-            pserv = "{0:>5s}/{1:3s}  {2:12s}  {3}".format(
-                    str(serv.port),
+            # pserv = "{0:>5s}/{1:3s}  {2:12s}  {3}".format(
+            #         str(serv.port),
+            #         serv.protocol,
+            #         serv.state,
+            #         serv.service,
+            #         )
+            print(str(serv.port),
                     serv.protocol,
                     serv.state,
-                    serv.service)
-            if len(serv.banner):
-                pserv += " ({0})".format(serv.banner)
-            print(pserv)
+                    serv.service, serv.cpelist, serv.banner)
+            # if len(serv.banner):
+            #     pserv += " ({0})".format(serv.banner)
+            # print(pserv)
     
