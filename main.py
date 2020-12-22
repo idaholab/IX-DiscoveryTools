@@ -3,9 +3,8 @@ from loader import stix_loader
 from runner import plugin_runner
 from nmap import nmap
 import pathlib
+import shutil
 # import logging #TODO: eventually add logging
-
-#~/repos/GTO/elevator_work/AIS_FEED/stix2/2020-07-04/AIS_83592a65-c426-4fa9-bc27-b26a4ecbe75d_s2020_07_04T10_58_06_00_00.json
 
 def ext_check(expected_extension):
     """
@@ -17,19 +16,40 @@ def ext_check(expected_extension):
         return filename
     return extension
     
-def cipr_check(cipr):
+def config_check(configfile):
     """
-    Do something similar to check for proper CIDR input on nmap arg
+    Check config file for plugins to use
+    TODO: programatically accept a config file rather than hard coded config.dat
     """
+    try:
+        dest = './temp/backup'
+        afile = open(configfile)
+        plugz = []
+        print(afile)
+        #Iterate through list of plugins '\n'
+        pluglist = afile.read().split('\n')
+        print(pluglist)
+        for plugin in pluglist:
+            if plugin: #remove empty/newlines
+                print('pluglist: ', plugin)
+                plugz.append(plugin)
+        
+        print(plugz)
+        return plugz
+    except FileNotFoundError:
+        pass
 
 if __name__ == "__main__":
     ### Insert argparse stuff here!
     
     ### currently assuming the args will end up in "args"
     parser = argparse.ArgumentParser(description='IX AutoDiscover Utility.')
-    parser.add_argument('--file', type=ext_check('.json'), help='Path to stix file to read in')
-    parser.add_argument('--network', help='nmap with CIDR network path')
-    parser.add_argument('--dest', type=ext_check('.json'), help='Path to save stix bundle')
+    parser.add_argument('-f', '--file', type=ext_check('.json'), help='Path to stix file to read in')
+    parser.add_argument('-n', '--network', help='nmap with CIDR network path')
+    parser.add_argument('-d', '--dest', type=ext_check('.json'), help='Path to save stix bundle')
+    parser.add_argument('-p', '--plugins', type=config_check('config.dat'), help='file list of plugins with args to run')
+    #TODO: nmap considered plugin?  Move here
+    #TODO: add config file for args and/or plugins
 
     args = parser.parse_args()
     
@@ -49,6 +69,11 @@ if __name__ == "__main__":
         sl.write_out(out_file)
     ### this should be the code needed to run the rest
 
+    ### attempting plugins arg
+    if args.plugins:
+        print('true')
+        print(args.plugins)
     if network:
         nm = nmap(args, sl)
         nm.run()
+

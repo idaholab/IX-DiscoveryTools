@@ -3,6 +3,9 @@ class plugin_runner:
         self.args = args
         self.stix_loader = stix_loader
 
+        if args.network:
+            self.run()
+            
     def run(self):
         """
         here we need to figure out the plugins we 
