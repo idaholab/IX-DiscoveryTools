@@ -8,8 +8,10 @@ authors = ["Michael Cutshaw <michael.cutshaw@inl.gov>"]
 python = "^3.6"
 argparse = "^1.4.0"
 stix2 = "^2.1.0"
+python-libnmap = "^0.7.2"
 
 [tool.poetry.dev-dependencies]
+pylint = "^2.6.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
