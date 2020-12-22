@@ -6,7 +6,7 @@ class nmap:
     def __init__ (self, args, stix_loader):
         self.args = args
         self.stix_loader = stix_loader
-        self.nm = NmapProcess(self.args['network'], options="-sV")
+        self.nm = NmapProcess(self.args.network, options="-sV")
 
     def run(self):
         rc = self.nm.run()
