@@ -45,9 +45,11 @@ if __name__ == "__main__":
         sl.write_out(out_file)
     ### this should be the code needed to run the rest
 
-    sl = ''
+    sl = stix_loader(in_file=in_file)
 
     nm = nmap(args, sl)
     nm.run()
+
+    sl.write_out('test.json')
 
     # test nmap call

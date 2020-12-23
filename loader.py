@@ -43,4 +43,9 @@ class stix_loader:
         self.ms_sink = self.ms.sink
 
     def write_out(self, path):
+        #if this becomes slow I have a work around
         self.ms.save_to_file(path)
+
+    def merge(self, items):
+        #need to make this do a proper merge later
+        self.ms_sink.add(items)
