@@ -84,7 +84,6 @@ if __name__ == "__main__":
     if plugins:
         file1 = open(plugin_list, 'r') 
         Lines = file1.readlines() 
-
         count = 0
         # Strips the newline character 
         for line in Lines: 
@@ -102,3 +101,6 @@ if __name__ == "__main__":
             else:
                 print('no plugins')
 
+    sl = stix_loader(in_file=in_file)
+    sl.write_out('test.json')
+    # test nmap call
