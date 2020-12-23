@@ -39,6 +39,7 @@ class stix_loader:
 
     def write_out(self, path):
         #if this becomes slow I have a work around
+        print('attempting to write_out to path: ', path)
         self.ms.save_to_file(path)
 
     def merge(self, items):

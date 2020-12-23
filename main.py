@@ -1,4 +1,4 @@
-import argparse
+from jsonargparse import ArgumentParser, ActionConfigFile
 from loader import stix_loader
 from runner import plugin_runner
 from nmap import nmap
@@ -19,28 +19,28 @@ def ext_check(expected_extension):
         return filename
     return extension
     
-def config_check(configfile):
-    """
-    Check config file for plugins to use
-    Mainly parses a file into a list and then saves it to ./temp/plugin_config.txt.
-    Should be completely rewritten
-    TODO: programatically accept a config file rather than hard coded config.dat
-    """
-    try:
-        dest = './config/plugin_config.txt'
-        afile = open(configfile)
-        x = []
-        #Iterate through list of plugins '\n'
-        pluglist = afile.read().split('\n')
-        for plugin in pluglist:
-            if plugin: #remove empty/newlines
-                print('pluglist: ', plugin)
-                x.append(plugin)
-        with open(dest, 'w') as f:
-            for item in x:
-                f.write("%s\n" % item)
-    except FileNotFoundError:
-        pass
+# def config_check(configfile):
+#     """
+#     Check config file for plugins to use
+#     Mainly parses a file into a list and then saves it to ./temp/plugin_config.txt.
+#     Should be completely rewritten
+#     TODO: programatically accept a config file rather than hard coded config.dat
+#     """
+#     try:
+#         dest = './config/plugin_config.txt'
+#         afile = open(configfile)
+#         x = []
+#         #Iterate through list of plugins '\n'
+#         pluglist = afile.read().split('\n')
+#         for plugin in pluglist:
+#             if plugin: #remove empty/newlines
+#                 print('pluglist: ', plugin)
+#                 x.append(plugin)
+#         with open(dest, 'w') as f:
+#             for item in x:
+#                 f.write("%s\n" % item)
+#     except FileNotFoundError:
+#         pass
 
 #TODO:if nothing is passed in, create blank file
 
@@ -49,12 +49,12 @@ if __name__ == "__main__":
     ### Insert argparse stuff here!
     
     ### currently assuming the args will end up in "args"
-    parser = argparse.ArgumentParser(description='IX AutoDiscover Utility.')
+    parser = ArgumentParser(description='IX AutoDiscover Utility.')
     parser.add_argument('-f', '--file', type=ext_check('.json'), help='Path to stix file to read in')
-    parser.add_argument('-d', '--dest', type=ext_check('.json'), default='./temp/', help='Path to save stix bundle')
-    parser.add_argument('-n', '--network', required=True, help='nmap with CIDR network path')
-    parser.add_argument('-p', '--plugins', type=config_check('config.txt'), help='file list of plugins with args to run')
-    #TODO: this gets called no matter what..
+    parser.add_argument('-d', '--dest', type=ext_check('.json'), default='./temp/test.json', help='Path to save stix bundle')
+    parser.add_argument('-p.1', '--plugins.nmap', help='CIDR network to run nmap on')# this gets called no matter what..
+    parser.add_argument('-p.2', '--plugins.sudo', help='run nmap as sudo, some TCP/IP fingerprinting requires this')
+    parser.add_argument('--cfg', action=ActionConfigFile)
     #TODO: add config file for args and/or plugins
 
     args = parser.parse_args()
@@ -62,7 +62,6 @@ if __name__ == "__main__":
     ### assuming in_file will end up in "in_file"
     in_file = args.file
     out_file = args.dest
-    network = args.network
     plugins = args.plugins
 
     if in_file:
@@ -71,36 +70,19 @@ if __name__ == "__main__":
         pr.run()
     else:
         sl = stix_loader() #sl required by nmap... If no in_file then we create a blank stix file
-    
 
     if out_file:
         sl.write_out(out_file)
-    ### this should be the code needed to run the rest
 
-    if network:
+    if plugins.nmap:
+        sudo = False
+        if plugins.sudo:
+            sudo = True
+        print('running nmap with sudo as: ', sudo )
         nm = nmap(args, sl)
-        nm.run()
+        x = nm.run(sudo)
+        sl.write_out(out_file)
 
-    if plugins:
-        file1 = open(plugin_list, 'r') 
-        Lines = file1.readlines() 
-        count = 0
-        # Strips the newline character 
-        for line in Lines: 
-            print("Line{}: {}".format(count, line.strip()))
-            count = count + 1
-            
-            if line.startswith('--network'):
-                args.network = line.strip('--network') #hacky check for network in line, then strip it out and save to args list to pass to nmap..
-                print(args)
-                nm = nmap(args, sl)
-                x = nm.run()
-                print(x)
-            elif line.startswith('--other_plugin'):
-                print('stuff')
-            else:
-                print('no plugins')
-
-    sl = stix_loader(in_file=in_file)
-    sl.write_out('test.json')
+    # sl = stix_loader(in_file=in_file)
+    # sl.write_out('test.json')
     # test nmap call

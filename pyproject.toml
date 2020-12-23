@@ -10,6 +10,7 @@ argparse = "^1.4.0"
 stix2 = "^2.1.0"
 python-libnmap = "^0.7.2"
 stix2_validator = "^2.0.4"
+jsonargparse = "^3.1.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"

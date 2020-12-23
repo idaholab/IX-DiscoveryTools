@@ -3,7 +3,7 @@ class plugin_runner:
         self.args = args
         self.stix_loader = stix_loader
 
-        if args.network:
+        if args.plugins.nmap:
             self.run()
             
     def run(self):
@@ -13,4 +13,4 @@ class plugin_runner:
         Each will likely take the stix_loader as an argument,
         along with all the other args
         """
-        pass
+        print('in plugin running but not doing anything yet')

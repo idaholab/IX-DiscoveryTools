@@ -13,11 +13,14 @@ class nmap:
     def __init__ (self, args, stix_loader):
         self.args = args
         self.stix_loader = stix_loader
-        self.nm = NmapProcess(self.args.network, options="-sV -O")
+        self.nm = NmapProcess(args.plugins.nmap, options="-sV -O")
 
     
-    def run(self):
-        rc = self.nm.sudo_run(run_as='root')
+    def run(self, sudo):
+        if sudo == True:
+            rc = self.nm.sudo_run(run_as='root')
+        else:
+            rc = self.nm.run()
 
         if self.nm.rc != 0:
             print(self.nm.stderr)
