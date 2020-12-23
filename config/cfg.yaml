@@ -3,6 +3,7 @@ file:
 dest:
   ./temp/test.json
 plugins:
-  nmap: 127.0.0.1
-  sudo: sudo
+  network:
+    nmap: 127.0.0.1
+    sudo: sudo
     

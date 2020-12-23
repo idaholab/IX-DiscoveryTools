@@ -13,7 +13,7 @@ class nmap:
     def __init__ (self, args, stix_loader):
         self.args = args
         self.stix_loader = stix_loader
-        self.nm = NmapProcess(args.plugins.nmap, options="-sV -O")
+        self.nm = NmapProcess(args.plugins.network.nmap, options="-sV -O")
 
     
     def run(self, sudo):

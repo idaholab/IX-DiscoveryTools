@@ -52,8 +52,8 @@ if __name__ == "__main__":
     parser = ArgumentParser(description='IX AutoDiscover Utility.')
     parser.add_argument('-f', '--file', type=ext_check('.json'), help='Path to stix file to read in')
     parser.add_argument('-d', '--dest', type=ext_check('.json'), default='./temp/test.json', help='Path to save stix bundle')
-    parser.add_argument('-p.1', '--plugins.nmap', help='CIDR network to run nmap on')# this gets called no matter what..
-    parser.add_argument('-p.2', '--plugins.sudo', help='run nmap as sudo, some TCP/IP fingerprinting requires this')
+    parser.add_argument('-p.1', '--plugins.network.nmap', help='CIDR network to run nmap on')# this gets called no matter what..
+    parser.add_argument('-p.2', '--plugins.network.sudo', help='run nmap as sudo, some TCP/IP fingerprinting requires this')
     parser.add_argument('--cfg', action=ActionConfigFile)
     #TODO: add config file for args and/or plugins
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     ### assuming in_file will end up in "in_file"
     in_file = args.file
     out_file = args.dest
-    plugins = args.plugins
+    plugins = args.plugins.network
 
     if in_file:
         sl = stix_loader(in_file=in_file)

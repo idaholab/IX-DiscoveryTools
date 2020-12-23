@@ -3,7 +3,7 @@ class plugin_runner:
         self.args = args
         self.stix_loader = stix_loader
 
-        if args.plugins.nmap:
+        if args.plugins.network.nmap:
             self.run()
             
     def run(self):
