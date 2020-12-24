@@ -4,6 +4,6 @@ dest:
   ./temp/test.json
 plugins:
   network:
-    nmap: 127.0.0.1
+    nmap: 172.16.227.133
     sudo: sudo
     
