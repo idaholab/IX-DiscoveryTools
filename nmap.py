@@ -10,10 +10,10 @@ def mapper(d, obj):
             l[key] = getattr(obj, d[key])
     return l
 class nmap:
-    def __init__ (self, args, stix_loader):
+    def __init__ (self, args, stix_loader, top_ports=1000):
         self.args = args
         self.stix_loader = stix_loader
-        self.nm = NmapProcess(args.plugins.network.nmap, options="-sV -O")
+        self.nm = NmapProcess(args.plugins.network.nmap, options=f"-sV --osscan-limit --top-ports {int(top_ports)}")
 
     
     def run(self, sudo):
@@ -24,7 +24,7 @@ class nmap:
 
         if self.nm.rc != 0:
             print(self.nm.stderr)
-
+        print("Scan finished... Parsing...")
         try:
             self.results = NmapParser.parse(self.nm.stdout)
         except NmapParserException as e:
@@ -35,6 +35,8 @@ class nmap:
         for host in self.results.hosts:
             if len(host.os_class_probabilities()):
                 os = host.os_class_probabilities().pop()
+            else:
+                os = None
 
             if len(host.hostnames):
                 tmp_host = host.hostnames.pop()
@@ -87,13 +89,14 @@ class nmap:
 
 
             for serv in host.services:
-                d = {'name':'service',
-                'cpe': 'cpelist',
+                d = {'cpe': 'cpelist',
+                'x_service': 'service',
                 'x_port' : 'port',
                 'x_protocol' : 'protocol',
                 'x_banner': 'banner'}
 
                 d = mapper(d, serv)
+                d['name'] = f"{d['x_service']} - {d['x_banner']}"
                 d['allow_custom'] = True
             
                 s = Software(**d)

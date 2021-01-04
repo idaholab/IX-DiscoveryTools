@@ -1,0 +1,1 @@
+- Increasing the number of additional ports to scan drastically slows down the system
