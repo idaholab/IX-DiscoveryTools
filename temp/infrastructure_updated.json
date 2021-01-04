@@ -1,0 +1,611 @@
+{
+    "type": "bundle",
+    "id": "bundle--85283d82-95fa-4ca5-bab8-4f029bd79d0c",
+    "objects": [
+        {
+            "type": "infrastructure",
+            "spec_version": "2.1",
+            "id": "infrastructure--38c47d93-d984-4fd9-b87b-d69d0841628d",
+            "created": "2016-05-07T11:22:30.000Z",
+            "modified": "2016-05-07T11:22:30.000Z",
+            "name": "Poison Ivy C2",
+            "infrastructure_types": [
+                "command-and-control"
+            ],
+            "labels": [
+                "command-and-control"
+            ]
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--7aebe2f0-28d6-48a2-9c3e-b0aaa60266ed",
+            "created": "2016-05-09T08:17:27.000Z",
+            "modified": "2016-05-09T08:17:27.000Z",
+            "relationship_type": "controls",
+            "source_ref": "infrastructure--38c47d93-d984-4fd9-b87b-d69d0841628d",
+            "target_ref": "malware--16f4f3f9-1b68-4abb-bb66-7639d49f1e30"
+        },
+        {
+            "type": "malware",
+            "spec_version": "2.1",
+            "id": "malware--16f4f3f9-1b68-4abb-bb66-7639d49f1e30",
+            "created": "2016-05-08T14:31:09.000Z",
+            "modified": "2016-05-08T14:31:09.000Z",
+            "name": "Poison Ivy",
+            "malware_types": [
+                "remote-access-trojan"
+            ],
+            "is_family": true,
+            "labels": [
+                "rat"
+            ]
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--7aebe2f0-28d6-48a2-9c3e-b0aaa60266ef",
+            "created": "2016-05-09T08:17:27.000Z",
+            "modified": "2016-05-09T08:17:27.000Z",
+            "relationship_type": "consists-of",
+            "source_ref": "infrastructure--38c47d93-d984-4fd9-b87b-d69d0841628d",
+            "target_ref": "ipv4-addr--1e4ffad7-0b88-41d4-ba4d-77d27490b956"
+        },
+        {
+            "type": "ipv4-addr",
+            "spec_version": "2.1",
+            "id": "ipv4-addr--1e4ffad7-0b88-41d4-ba4d-77d27490b956",
+            "value": "198.51.100.3"
+        },
+        {
+            "type": "infrastructure",
+            "spec_version": "2.1",
+            "id": "infrastructure--d09c50cf-5bab-465e-9e2d-543912148b73",
+            "created": "2016-11-22T09:22:30.000Z",
+            "modified": "2016-11-22T09:22:30.000Z",
+            "name": "Example target-list-hosting",
+            "infrastructure_types": [
+                "hosting-target-lists"
+            ],
+            "labels": [
+                "target-list-hosting"
+            ]
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--37ac0c8d-f86d-4e56-aee9-914343959a4c",
+            "created": "2016-11-23T08:17:27.000Z",
+            "modified": "2016-11-23T08:17:27.000Z",
+            "relationship_type": "uses",
+            "source_ref": "malware--3a41e552-999b-4ad3-bedc-332b6d9ff80c",
+            "target_ref": "infrastructure--d09c50cf-5bab-465e-9e2d-543912148b73"
+        },
+        {
+            "type": "malware",
+            "spec_version": "2.1",
+            "id": "malware--3a41e552-999b-4ad3-bedc-332b6d9ff80c",
+            "created": "2016-11-12T14:31:09.000Z",
+            "modified": "2016-11-12T14:31:09.000Z",
+            "name": "IMDDOS",
+            "malware_types": [
+                "bot"
+            ],
+            "is_family": true
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--81f12913-1372-4c96-85ec-E9034ac98aba",
+            "created": "2016-11-23T10:42:39.000Z",
+            "modified": "2016-11-23T10:42:39.000Z",
+            "relationship_type": "consists-of",
+            "source_ref": "infrastructure--d09c50cf-5bab-465e-9e2d-543912148b73",
+            "target_ref": "domain-name--ecb120bf-2694-4902-a737-62b74539a41b"
+        },
+        {
+            "type": "domain-name",
+            "spec_version": "2.1",
+            "id": "domain-name--ecb120bf-2694-4902-a737-62b74539a41b",
+            "value": "example.com"
+        },
+        {
+            "type": "infrastructure",
+            "spec_version": "2.1",
+            "id": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "created": "2020-12-24T21:27:47.89505Z",
+            "modified": "2020-12-24T21:27:47.89505Z",
+            "name": "general purpose: Linux, Linux(2.6.X)"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--232d3e8b-a6cf-517a-962b-025d950563f6",
+            "name": "general purpose: Linux, Linux(2.6.X)",
+            "vendor": "Linux",
+            "x_accuracy": 100
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--7513c4f6-ac64-46bc-8a21-340fd1b41687",
+            "created": "2020-12-24T21:27:47.89603Z",
+            "modified": "2020-12-24T21:27:47.89603Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--232d3e8b-a6cf-517a-962b-025d950563f6"
+        },
+        {
+            "type": "ipv4-addr",
+            "spec_version": "2.1",
+            "id": "ipv4-addr--68f39326-0290-5244-bcb2-7a35a5b3dfc2",
+            "value": "172.16.227.133"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--9b861ef9-82e3-4ecf-8775-40d4dd8b80d5",
+            "created": "2020-12-24T21:27:47.896479Z",
+            "modified": "2020-12-24T21:27:47.896479Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "ipv4-addr--68f39326-0290-5244-bcb2-7a35a5b3dfc2"
+        },
+        {
+            "type": "mac-addr",
+            "spec_version": "2.1",
+            "id": "mac-addr--b430a9a7-5c49-5e5a-96e6-0a52005f5db1",
+            "value": "00:0C:29:FA:DD:2A"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--64a55165-2cd6-4ac4-afdb-5dc545d78f7a",
+            "created": "2020-12-24T21:27:47.896788Z",
+            "modified": "2020-12-24T21:27:47.896788Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "mac-addr--b430a9a7-5c49-5e5a-96e6-0a52005f5db1"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--3a74e972-2bbe-5d48-ac34-82a8f3913142",
+            "name": "ftp",
+            "cpe": "[cpe:/a:vsftpd:vsftpd:2.3.4]",
+            "x_banner": "product: vsftpd version: 2.3.4 ostype: Unix",
+            "x_port": 21,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--f1bb4fb2-777e-4fb8-9f89-c2903c8f34b3",
+            "created": "2020-12-24T21:27:47.897127Z",
+            "modified": "2020-12-24T21:27:47.897127Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--3a74e972-2bbe-5d48-ac34-82a8f3913142"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--d2108b2a-7abb-5bf1-b06b-0692b66e79de",
+            "name": "ssh",
+            "cpe": "[cpe:/a:openbsd:openssh:4.7p1, cpe:/o:linux:linux_kernel]",
+            "x_banner": "product: OpenSSH version: 4.7p1 Debian 8ubuntu1 extrainfo: protocol 2.0 ostype: Linux",
+            "x_port": 22,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--84d7a9b4-83ef-4226-aa29-9d0e6e9bb0bb",
+            "created": "2020-12-24T21:27:47.897454Z",
+            "modified": "2020-12-24T21:27:47.897454Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--d2108b2a-7abb-5bf1-b06b-0692b66e79de"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--9ab0d30a-54aa-5b13-9c88-b9ce521696bc",
+            "name": "telnet",
+            "cpe": "[cpe:/o:linux:linux_kernel]",
+            "x_banner": "product: Linux telnetd ostype: Linux",
+            "x_port": 23,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--5d36ceca-8347-4531-bacf-ddb51d5ab8c9",
+            "created": "2020-12-24T21:27:47.897772Z",
+            "modified": "2020-12-24T21:27:47.897772Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--9ab0d30a-54aa-5b13-9c88-b9ce521696bc"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--2440e75b-41f4-534f-be83-ef5bef4b0f8e",
+            "name": "smtp",
+            "cpe": "[cpe:/a:postfix:postfix]",
+            "x_banner": "product: Postfix smtpd hostname:  metasploitable.localdomain",
+            "x_port": 25,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--d7f2f525-d852-4648-a9b1-364aca58f4ac",
+            "created": "2020-12-24T21:27:47.898091Z",
+            "modified": "2020-12-24T21:27:47.898091Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--2440e75b-41f4-534f-be83-ef5bef4b0f8e"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--c48dd5d5-ac13-5c12-a93f-ae52b0903bef",
+            "name": "domain",
+            "cpe": "[cpe:/a:isc:bind:9.4.2]",
+            "x_banner": "product: ISC BIND version: 9.4.2",
+            "x_port": 53,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--5ebecb5e-8a23-4748-a40e-c02769e19791",
+            "created": "2020-12-24T21:27:47.898409Z",
+            "modified": "2020-12-24T21:27:47.898409Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--c48dd5d5-ac13-5c12-a93f-ae52b0903bef"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--84033e55-e8d5-5e1c-86d0-1f899ae2702e",
+            "name": "http",
+            "cpe": "[cpe:/a:apache:http_server:2.2.8]",
+            "x_banner": "product: Apache httpd version: 2.2.8 extrainfo: (Ubuntu) DAV/2",
+            "x_port": 80,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--4ee46ba9-fc52-4301-b88f-70d37506a672",
+            "created": "2020-12-24T21:27:47.89873Z",
+            "modified": "2020-12-24T21:27:47.89873Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--84033e55-e8d5-5e1c-86d0-1f899ae2702e"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--e039e12c-fdd5-5390-a7e4-81751eb80e9a",
+            "name": "rpcbind",
+            "x_banner": "version: 2 extrainfo: RPC #100000",
+            "x_port": 111,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--a7347be8-66c8-44cf-a7c4-a1b9778dad13",
+            "created": "2020-12-24T21:27:47.899035Z",
+            "modified": "2020-12-24T21:27:47.899035Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--e039e12c-fdd5-5390-a7e4-81751eb80e9a"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--606933aa-ba1b-5a45-88eb-0f69a53b140f",
+            "name": "netbios-ssn",
+            "cpe": "[cpe:/a:samba:samba]",
+            "x_banner": "product: Samba smbd version: 3.X - 4.X extrainfo: workgroup: WORKGROUP",
+            "x_port": 445,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--9f537988-c43e-41c6-b4b1-eca14eb89423",
+            "created": "2020-12-24T21:27:47.899351Z",
+            "modified": "2020-12-24T21:27:47.899351Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--606933aa-ba1b-5a45-88eb-0f69a53b140f"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--83b50048-5882-4688-ab22-5b5a70070965",
+            "created": "2020-12-24T21:27:47.899666Z",
+            "modified": "2020-12-24T21:27:47.899666Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--606933aa-ba1b-5a45-88eb-0f69a53b140f"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--c300475e-a86b-5fe7-b24f-9381019af5bd",
+            "name": "exec",
+            "cpe": "[cpe:/a:netkit:netkit, cpe:/o:linux:linux_kernel]",
+            "x_banner": "product: netkit-rsh rexecd ostype: Linux",
+            "x_port": 512,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--0c9db642-dd50-4bc2-b851-759dbac0c731",
+            "created": "2020-12-24T21:27:47.899985Z",
+            "modified": "2020-12-24T21:27:47.899985Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--c300475e-a86b-5fe7-b24f-9381019af5bd"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--b465b031-80ca-5816-aa4f-0ba143a24476",
+            "name": "login",
+            "x_banner": "product: OpenBSD or Solaris rlogind",
+            "x_port": 513,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--619e14dd-2f50-436c-bbcb-627b8137c503",
+            "created": "2020-12-24T21:27:47.900288Z",
+            "modified": "2020-12-24T21:27:47.900288Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--b465b031-80ca-5816-aa4f-0ba143a24476"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--9683cd08-13a0-5e2f-8add-8d9120b0b2a8",
+            "name": "tcpwrapped",
+            "x_port": 514,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--afbbed90-e276-4751-add8-40ef3f0f642d",
+            "created": "2020-12-24T21:27:47.900591Z",
+            "modified": "2020-12-24T21:27:47.900591Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--9683cd08-13a0-5e2f-8add-8d9120b0b2a8"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--c45c39fa-0ff7-5414-a122-5d8d7314bc1e",
+            "name": "java-rmi",
+            "x_banner": "product: GNU Classpath grmiregistry",
+            "x_port": 1099,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--6f6f274a-1c5b-47ec-87e3-277031ce6063",
+            "created": "2020-12-24T21:27:47.900886Z",
+            "modified": "2020-12-24T21:27:47.900886Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--c45c39fa-0ff7-5414-a122-5d8d7314bc1e"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--8493ec16-5b43-5887-a885-0e964a5660c0",
+            "name": "bindshell",
+            "x_banner": "product: Metasploitable root shell",
+            "x_port": 1524,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--e478cca2-52d1-496c-9155-60d9415346a2",
+            "created": "2020-12-24T21:27:47.901186Z",
+            "modified": "2020-12-24T21:27:47.901186Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--8493ec16-5b43-5887-a885-0e964a5660c0"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--1f6b8be6-058c-5966-aa22-74f4f47216d2",
+            "name": "nfs",
+            "x_banner": "version: 2-4 extrainfo: RPC #100003",
+            "x_port": 2049,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--4986db98-9882-4b27-8297-66d7ba1bf8d5",
+            "created": "2020-12-24T21:27:47.90149Z",
+            "modified": "2020-12-24T21:27:47.90149Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--1f6b8be6-058c-5966-aa22-74f4f47216d2"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--14e86b9c-aee6-5db4-bda2-f4ed5bb9ce25",
+            "name": "ftp",
+            "cpe": "[cpe:/a:proftpd:proftpd:1.3.1]",
+            "x_banner": "product: ProFTPD version: 1.3.1 ostype: Unix",
+            "x_port": 2121,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--2e161154-4386-4fd0-9aed-91ba2920b7da",
+            "created": "2020-12-24T21:27:47.901857Z",
+            "modified": "2020-12-24T21:27:47.901857Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--14e86b9c-aee6-5db4-bda2-f4ed5bb9ce25"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--493a46fd-6949-5c40-8949-7460459a030a",
+            "name": "mysql",
+            "cpe": "[cpe:/a:mysql:mysql:5.0.51a-3ubuntu5]",
+            "x_banner": "product: MySQL version: 5.0.51a-3ubuntu5",
+            "x_port": 3306,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--2ce3c851-213d-4b25-806b-cbdd4c731d78",
+            "created": "2020-12-24T21:27:47.90217Z",
+            "modified": "2020-12-24T21:27:47.90217Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--493a46fd-6949-5c40-8949-7460459a030a"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--9e40689c-944c-5683-bb5b-47dde306ed47",
+            "name": "postgresql",
+            "cpe": "[cpe:/a:postgresql:postgresql:8.3]",
+            "x_banner": "product: PostgreSQL DB version: 8.3.0 - 8.3.7",
+            "x_port": 5432,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--7973899b-1b48-4772-b766-3e3199f8abd8",
+            "created": "2020-12-24T21:27:47.902475Z",
+            "modified": "2020-12-24T21:27:47.902475Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--9e40689c-944c-5683-bb5b-47dde306ed47"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--3d7cced8-2d04-506b-b4dd-e674f3a455d1",
+            "name": "vnc",
+            "x_banner": "product: VNC extrainfo: protocol 3.3",
+            "x_port": 5900,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--87176d7f-c712-473d-be52-5cc13b4f8c60",
+            "created": "2020-12-24T21:27:47.90277Z",
+            "modified": "2020-12-24T21:27:47.90277Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--3d7cced8-2d04-506b-b4dd-e674f3a455d1"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--97d5877d-a351-5240-bcdc-9ffa784db148",
+            "name": "X11",
+            "x_banner": "extrainfo: access denied",
+            "x_port": 6000,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--95f3d1d2-01a8-4dbc-a3a1-48bfd0ec7795",
+            "created": "2020-12-24T21:27:47.903066Z",
+            "modified": "2020-12-24T21:27:47.903066Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--97d5877d-a351-5240-bcdc-9ffa784db148"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--9fe93647-2046-57bf-8e76-d55296dccdc5",
+            "name": "irc",
+            "cpe": "[cpe:/a:unrealircd:unrealircd]",
+            "x_banner": "product: UnrealIRCd hostname: irc.Metasploitable.LAN",
+            "x_port": 6667,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--24ebb05b-89a2-4584-918d-4991b7541192",
+            "created": "2020-12-24T21:27:47.90337Z",
+            "modified": "2020-12-24T21:27:47.90337Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--9fe93647-2046-57bf-8e76-d55296dccdc5"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--1d85f6bd-5730-59e6-956d-03230e9b8197",
+            "name": "ajp13",
+            "x_banner": "product: Apache Jserv extrainfo: Protocol v1.3",
+            "x_port": 8009,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--a4def59d-0e20-401e-83e8-dfc15d99dbd6",
+            "created": "2020-12-24T21:27:47.903667Z",
+            "modified": "2020-12-24T21:27:47.903667Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--1d85f6bd-5730-59e6-956d-03230e9b8197"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--c35ccebf-0b34-5d92-9d60-b6752937c0ab",
+            "name": "http",
+            "cpe": "[cpe:/a:apache:coyote_http_connector:1.1]",
+            "x_banner": "product: Apache Tomcat/Coyote JSP engine version: 1.1",
+            "x_port": 8180,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--e9298d65-5de3-4d55-aa86-bb434de430d6",
+            "created": "2020-12-24T21:27:47.903972Z",
+            "modified": "2020-12-24T21:27:47.903972Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--4cf10860-ff66-462a-a918-e9ccdd34159c",
+            "target_ref": "software--c35ccebf-0b34-5d92-9d60-b6752937c0ab"
+        }
+    ]
+}

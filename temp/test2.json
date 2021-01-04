@@ -1,6 +1,6 @@
 {
     "type": "bundle",
-    "id": "bundle--4f77fabc-800a-4cf3-8da0-3117f99c076b",
+    "id": "bundle--e6f1e072-9692-442e-90b8-a62e97aac3d8",
     "objects": [
         {
             "type": "infrastructure",
@@ -108,6 +108,162 @@
             "spec_version": "2.1",
             "id": "domain-name--ecb120bf-2694-4902-a737-62b74539a41b",
             "value": "example.com"
+        },
+        {
+            "type": "infrastructure",
+            "spec_version": "2.1",
+            "id": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "created": "2020-12-23T19:59:39.083589Z",
+            "modified": "2020-12-23T19:59:39.083589Z",
+            "name": "localhost"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--19421f84-a855-5ccf-a09d-0b8afa0adc4a",
+            "name": "phone: Apple, iOS(5.X)",
+            "vendor": "Apple",
+            "x_accuracy": 93
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--5ca4f67f-cb3b-49f6-8074-a8ef68b9be19",
+            "created": "2020-12-23T19:59:39.094878Z",
+            "modified": "2020-12-23T19:59:39.094878Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--19421f84-a855-5ccf-a09d-0b8afa0adc4a"
+        },
+        {
+            "type": "ipv4-addr",
+            "spec_version": "2.1",
+            "id": "ipv4-addr--679c6c82-b4be-52e2-9c7a-198689f6f77b",
+            "value": "127.0.0.1"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--5aef6fd1-69e5-4ff6-a8d1-b682a8ab68cf",
+            "created": "2020-12-23T19:59:39.095373Z",
+            "modified": "2020-12-23T19:59:39.095373Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "ipv4-addr--679c6c82-b4be-52e2-9c7a-198689f6f77b"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--fd6820de-b5bf-5e14-a90b-dcac13cabdfd",
+            "name": "ssh",
+            "cpe": "[cpe:/a:openbsd:openssh:8.1]",
+            "x_banner": "product: OpenSSH version: 8.1 extrainfo: protocol 2.0",
+            "x_port": 22,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--b2f37514-6aa9-4b31-8d11-4aa67dd1e748",
+            "created": "2020-12-23T19:59:39.095819Z",
+            "modified": "2020-12-23T19:59:39.095819Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--fd6820de-b5bf-5e14-a90b-dcac13cabdfd"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--3999510c-4161-55bb-b775-8c64f7a4f98d",
+            "name": "ipp",
+            "cpe": "[cpe:/a:apple:cups:2.3]",
+            "x_banner": "product: CUPS version: 2.3",
+            "x_port": 631,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--503930bf-905a-4ab7-9d43-437ade761460",
+            "created": "2020-12-23T19:59:39.096234Z",
+            "modified": "2020-12-23T19:59:39.096234Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--3999510c-4161-55bb-b775-8c64f7a4f98d"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--9683cd08-13a0-5e2f-8add-8d9120b0b2a8",
+            "name": "tcpwrapped",
+            "x_port": 3283,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--2d9478a6-2487-4f5c-8209-2c3b15f36c5f",
+            "created": "2020-12-23T19:59:39.096649Z",
+            "modified": "2020-12-23T19:59:39.096649Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--9683cd08-13a0-5e2f-8add-8d9120b0b2a8"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--dfeeec52-2f6c-5960-831b-9e189b6c9c83",
+            "name": "vnc",
+            "cpe": "[cpe:/o:apple:mac_os_x]",
+            "x_banner": "product: Apple remote desktop vnc ostype: Mac OS X",
+            "x_port": 5900,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--e728c364-4d7c-4143-b98c-d34d36472d18",
+            "created": "2020-12-23T19:59:39.097088Z",
+            "modified": "2020-12-23T19:59:39.097088Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--dfeeec52-2f6c-5960-831b-9e189b6c9c83"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--6f3135f0-db1e-595a-a620-cbf70b3143d0",
+            "name": "interwise",
+            "x_port": 7778,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--32640a4d-f8c9-41d1-885e-a12edc7fced4",
+            "created": "2020-12-23T19:59:39.097498Z",
+            "modified": "2020-12-23T19:59:39.097498Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--6f3135f0-db1e-595a-a620-cbf70b3143d0"
+        },
+        {
+            "type": "software",
+            "spec_version": "2.1",
+            "id": "software--0f77247e-5d90-555e-94ec-987bb21c583b",
+            "name": "http-proxy",
+            "x_port": 8080,
+            "x_protocol": "tcp"
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--18a17952-36cf-461b-84c9-0f5fab0030e1",
+            "created": "2020-12-23T19:59:39.097868Z",
+            "modified": "2020-12-23T19:59:39.097868Z",
+            "relationship_type": "has",
+            "source_ref": "infrastructure--345b8b0a-7462-48b7-b5ed-91b815e8c2d9",
+            "target_ref": "software--0f77247e-5d90-555e-94ec-987bb21c583b"
         }
     ]
 }
