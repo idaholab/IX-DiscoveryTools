@@ -1,7 +1,6 @@
-from stix2 import MemoryStore, Infrastructure, Relationship
+from stix2 import MemoryStore, Infrastructure, Relationship, Software
+import logging
 
-#should only need for dev
-from pprint import pprint
 class stix_loader:
     def __init__(self, in_file=None):
         self.in_file = in_file
@@ -15,16 +14,17 @@ class stix_loader:
         #we use this table to remap custom objects to the correct, add items as needed
         self.fix_table = {
             'infrastructure': Infrastructure,
-            'relationship': Relationship
+            'relationship': Relationship,
+            'software': Software
         }
 
     def read_in(self):
         self.create_blank()
-        print('trying to read in: ', self.in_file)
+        logging.info(f'trying to read in: {self.in_file}')
         self.ms.load_from_file(self.in_file)
 
         objects = self.ms_source.query()
-
+        
         fixed_items = objects[:]
         for index, item in enumerate(objects):
             if type(item) == dict and item['type'] in fix_table:
@@ -33,6 +33,7 @@ class stix_loader:
         # self.objects = fixed_items
 
     def create_blank(self):
+        logging.info('Creating blank stix object')
         self.ms = MemoryStore(allow_custom=True)
         self.ms_source = self.ms.source
         self.ms_sink = self.ms.sink
@@ -40,8 +41,14 @@ class stix_loader:
     def write_out(self, path):
         #if this becomes slow I have a work around
         print('attempting to write_out to path: ', path)
+        logging.info('Starting save to file')
         self.ms.save_to_file(path)
+        logging.info('Finished save to file')
 
     def merge(self, items):
         #need to make this do a proper merge later
-        self.ms_sink.add(items)
+        #self.ms_sink.add(items)
+        logging.info('Merging:')
+        for item in items:
+            logging.info(f'Adding:\n {item}')
+            self.ms_sink.add(item)
