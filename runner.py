@@ -22,7 +22,9 @@ class plugin_runner:
                 x = nm.run(plugins.sudo)
         except Exception as e:
             logging.exception(f'Caught exception in nmap plugin: {e}')
-        p = pcap(self.args, self.stix_loader)
-        p.run()
+
+        if self.args.plugins.pcap.file:
+            p = pcap(self.args, self.stix_loader, file=self.args.plugins.pcap.file)
+            p.run()
 
         self.stix_loader.write_out(self.args.dest)

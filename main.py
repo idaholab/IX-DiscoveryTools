@@ -58,7 +58,8 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dest', type=ext_check('.json'), default='./temp/test.json', help='Path to save stix bundle')
     parser.add_argument('-p.1', '--plugins.network.nmap', help='CIDR network to run nmap on')# this gets called no matter what..
     parser.add_argument('-p.2',  '--plugins.network.sudo', action='store_true', default=False, help='run nmap as sudo, some TCP/IP fingerprinting requires this')
-    parser.add_argument('--cfg', action=ActionConfigFile)
+    parser.add_argument('-p.3',  '--plugins.pcap.file',  help='file to ingest for pcap plugin')
+    parser.add_argument('--cfg', action=ActionConfigFile, help='Config file input')
     #TODO: add config file for args and/or plugins
 
     args = parser.parse_args()

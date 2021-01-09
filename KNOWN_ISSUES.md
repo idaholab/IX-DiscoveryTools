@@ -1,1 +1,2 @@
 - Increasing the number of additional ports to scan drastically slows down the system
+- PCAP will only be able to handle udp/tcp services
