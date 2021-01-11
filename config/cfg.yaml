@@ -5,5 +5,5 @@ dest:
 plugins:
   network:
     nmap: 172.16.227.133
-    sudo: sudo
-    
+    sudo: True
+  cve: True

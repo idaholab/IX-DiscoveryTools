@@ -1,5 +1,6 @@
 from plugins.nmap import nmap
 from plugins.pcap import pcap
+from plugins.cve_search import cve_search
 import logging
 
 class plugin_runner:
@@ -9,10 +10,8 @@ class plugin_runner:
 
     def run(self):
         """
-        here we need to figure out the plugins we 
-        need to run from the args then run them
-        Each will likely take the stix_loader as an argument,
-        along with all the other args
+        Runs all plugins that are set up via either config file or args passed in
+        Checks for each plugin and calls the each runner
         """
         plugins = self.args.plugins.network
         try:
@@ -27,4 +26,8 @@ class plugin_runner:
             p = pcap(self.args, self.stix_loader, file=self.args.plugins.pcap.file)
             p.run()
 
+        if self.args.plugins.cve:
+            c = cve_search(self.args, self.stix_loader)
+            c.run()
+        
         self.stix_loader.write_out(self.args.dest)
