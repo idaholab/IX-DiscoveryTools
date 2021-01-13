@@ -3,9 +3,6 @@ import logging
 from stix2 import Infrastructure, IPv4Address, Relationship, Software, NetworkTraffic
 from stix2.datastore import Filter, FilterSet
 from util import gen_uuid
-from inspect import getmembers
-from pprint import pprint
-
 
 def packet_obj(protocol, service, src, dst):
     return NetworkTraffic(id=gen_uuid('network-traffic'), #name=f'{service if service else protocol} traffic', 
@@ -86,15 +83,18 @@ class pcap:
                             d[ip_obj.value].append((software.x_port, software.x_protocol, None, software))
 
         #search pcap for ip/proto[tcp/udp]/port combinations
-        print(d)
         if not self.file is None:
+            if self.get_packet('') is None:
+                logging.error(f'No packets in file {self.file} or file cannot be accessed...')
+                return None
             for ip in d:
                 for port_proto in d[ip]:
-                    
+                    #logging.debug(f'Evaluating {port_proto}')
                     packet = None
                     (port, protocol, service, src_software) = port_proto
                     if port_proto[2]:
                         filt = f'ip.addr == {ip} and {protocol}.port == {port} and {protocol} and {service}'
+                        logging.debug(f'Filter {filt}')
                         packet = self.get_packet(filt)
                             
                     if packet is None:
@@ -102,7 +102,7 @@ class pcap:
                         packet = self.get_packet(filt)
 
                     if not packet is None:
-                        print(port_proto)
+                        logging.debug(f'Matching packet: {packet}')
                         (newobj_ip, newobj_port) = get_other_ip(packet, ip)
                       
                         if newobj_ip:
@@ -124,6 +124,8 @@ class pcap:
 
         # one for each direction
         #   then we can always try crazy mode were we make one for each match
+        else:
+            logging.error('Pcap plugin is running, but no input file is given...')
         self.stix_loader.merge(l)
         logging.info('finishing pcap plugin')
 

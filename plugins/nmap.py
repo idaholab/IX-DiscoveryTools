@@ -17,6 +17,62 @@ class nmap:
         self.stix_loader = stix_loader
         self.nm = NmapProcess(args.plugins.network.nmap, options=f"-sV -O --top-ports {int(top_ports)}")
 
+
+    def link_to_obj(self, src_obj, dst_list, relationship='has'):
+        l = []
+        if isinstance(dst_list, list):
+            for dst in dst_list:
+                rel = Relationship(source_ref=src_obj, relationship_type=relationship, target_ref=dst)
+                l.append(rel)
+        else:
+            rel = Relationship(source_ref=src_obj, relationship_type=relationship, target_ref=dst_list)
+            l.append(rel)
+        return l
+
+    def process_service(self, services):
+        l = []
+        for serv in services:
+
+            
+            d = {'x_cpe': 'cpelist',
+            'x_service': 'service',
+            'x_port' : 'port',
+            'x_protocol' : 'protocol',
+            'x_banner': 'banner'}
+            d = mapper(d, serv)
+
+            v = {'x_vendor': 'vendor',
+            'x_product': 'product',
+            'x_hostname' : 'hostname',
+            # 'x_name' : 'name',
+            'x_extrainfo': 'extrainfo',
+            'x_version': 'version',
+            'x_ostype': 'ostype'}
+
+            for key, value in v.items():
+                if value in serv.service_dict.keys():
+                    d[key] = serv.service_dict[value]
+            
+            if 'x_cpe' in d.keys():
+                cpelist = []
+                for item in d['x_cpe']:
+                    cpelist.append(item.cpestring.replace('/','2.3:'))
+                d['x_cpe'] = cpelist
+
+            if 'x_product' in d.keys():
+                d['name'] = f"{d['x_product']}"
+            elif 'x_banner' in d.keys():
+                d['name'] = f"{d['x_service']} - {d['x_banner']}"
+            else:
+                d['name'] = f"{d['x_service']}"
+        
+
+            s = Software(id=gen_uuid('software'), **d, allow_custom=True)
+
+            l.append(s)
+            logging.debug(f'software obj: {s}')
+        return l
+
     def run(self, sudo):
         if sudo == True:
             logging.info('Running scan as root')
@@ -36,6 +92,7 @@ class nmap:
         l = []
 
         for host in self.results.hosts:
+            
             if len(host.os_class_probabilities()):
                 os = host.os_class_probabilities().pop()
             else:
@@ -50,8 +107,8 @@ class nmap:
             else:
                 tmp_host = host.mac
 
-                        
-            host_obj = Infrastructure(id=gen_uuid('infrastructure'),name=tmp_host, allow_custom=True)
+            
+            host_obj = Infrastructure(id=gen_uuid('infrastructure'),name=tmp_host, allow_custom=True, x_NIC_vendor=host.vendor)
             logging.info(f'host obj: {host_obj}')
             l.append(host_obj)
 
@@ -101,32 +158,12 @@ class nmap:
                     logging.debug(f'hostname obj: {s}')
 
 
-            for serv in host.services:
-                d = {'x_cpe': 'cpelist',
-                'x_service': 'service',
-                'x_port' : 'port',
-                'x_protocol' : 'protocol',
-                'x_banner': 'banner'}
-                d = mapper(d, serv)
-               
-                if 'x_cpe' in d.keys():
-                    cpelist = []
-                    for item in d['x_cpe']:
-                        cpelist.append(item.cpestring.replace('/','2.3:'))
-                    d['x_cpe'] = cpelist
-
-                if 'x_banner' in d.keys():
-                    d['name'] = f"{d['x_service']} - {d['x_banner']}"
-                else:
-                    d['name'] = f"{d['x_service']}"
-            
-
-                s = Software(id=gen_uuid('software'), **d, allow_custom=True)
-
-                rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
-                l.append(s)
-                l.append(rel)
-                logging.info(f'software obj: {s}')
-
+            service_objs = self.process_service(host.services)
+            rels = self.link_to_obj(host_obj, service_objs)
+            l += service_objs
+            l += rels
+          
         logging.info(f'End of nmap plugin')
         self.stix_loader.merge(l)
+
+        
