@@ -29,6 +29,21 @@ class nmap:
             l.append(rel)
         return l
 
+    def add_hostname(self, objs, relationship='has'):
+        l = []
+        if isinstance(objs, list):
+            for obj in objs:
+                if hasattr(obj, 'x_hostname'):
+                    d = DomainName(value=obj.x_hostname)
+                    rel = Relationship(source_ref=obj, relationship_type=relationship, target_ref=d)
+                    l.extend([rel, d])
+        else:
+            if hasattr(objs, 'x_hostname'):
+                d = DomainName(value=objs.x_hostname)
+                rel = Relationship(source_ref=objs, relationship_type=relationship, target_ref=d)
+                l.extend([rel, d])
+        return l
+
     def process_service(self, services):
         l = []
         for serv in services:
@@ -161,6 +176,7 @@ class nmap:
             service_objs = self.process_service(host.services)
             rels = self.link_to_obj(host_obj, service_objs)
             l += service_objs
+            l += self.add_hostname(service_objs)
             l += rels
           
         logging.info(f'End of nmap plugin')
