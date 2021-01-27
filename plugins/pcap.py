@@ -2,7 +2,7 @@ import pyshark
 import logging
 from stix2 import Infrastructure, IPv4Address, Relationship, Software, NetworkTraffic
 from stix2.datastore import Filter, FilterSet
-from util import gen_uuid
+from util.util import gen_uuid
 
 def packet_obj(protocol, service, src, dst):
     return NetworkTraffic(id=gen_uuid('network-traffic'), #name=f'{service if service else protocol} traffic', 

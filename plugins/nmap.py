@@ -1,7 +1,7 @@
 from libnmap.process import NmapProcess
 from libnmap.parser import NmapParser, NmapParserException
 from stix2 import Infrastructure, parse, Relationship, Bundle, Software, IPv6Address, IPv4Address, MACAddress, DomainName
-from util import gen_uuid
+from util.util import gen_uuid
 import logging
 
 def mapper(d, obj):
@@ -12,10 +12,14 @@ def mapper(d, obj):
     return l
 
 class nmap:
-    def __init__ (self, args, stix_loader, top_ports=1000):
+    def __init__ (self, args, stix_loader, top_ports=1000, T4=False):
         self.args = args
         self.stix_loader = stix_loader
-        self.nm = NmapProcess(args.plugins.network.nmap, options=f"-sV -O --top-ports {int(top_ports)}")
+        command_string = f"-sV -O --top-ports {int(top_ports)}"
+        if T4:
+            command_string += " -T4"
+        logging.info(command_string)
+        self.nm = NmapProcess(args.plugins.network.nmap, options=command_string)
 
 
     def link_to_obj(self, src_obj, dst_list, relationship='has'):
