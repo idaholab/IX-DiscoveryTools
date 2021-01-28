@@ -7,3 +7,9 @@ plugins:
     nmap: 172.16.227.133
     sudo: True
   cve: True
+  pcap:
+
+  # banner:
+  #   .csv [hostname, password]  
+  #   --> scrape banner
+  #   --> save back inti Infrastructure object

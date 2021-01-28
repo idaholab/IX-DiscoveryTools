@@ -478,26 +478,6 @@
         {
             "type": "software",
             "spec_version": "2.1",
-            "id": "software--a54dc8cd-87c9-4baa-91d4-df1fa50c19bf",
-            "name": "nfs - version: 2-4 extrainfo: RPC #100003",
-            "x_banner": "version: 2-4 extrainfo: RPC #100003",
-            "x_port": 2049,
-            "x_service": "nfs",
-            "x_protocol": "tcp"
-        },
-        {
-            "type": "relationship",
-            "spec_version": "2.1",
-            "id": "relationship--d96f7922-e954-4b7a-a183-29d607c647a5",
-            "created": "2021-01-11T17:42:25.056398Z",
-            "modified": "2021-01-11T17:42:25.056398Z",
-            "relationship_type": "has",
-            "source_ref": "infrastructure--52d3485e-2b13-4135-af16-fafa89c394ca",
-            "target_ref": "software--a54dc8cd-87c9-4baa-91d4-df1fa50c19bf"
-        },
-        {
-            "type": "software",
-            "spec_version": "2.1",
             "id": "software--b3dfd992-b836-40dd-aec9-a9f3c65e0484",
             "name": "ftp - product: ProFTPD version: 1.3.1 ostype: Unix",
             "x_banner": "product: ProFTPD version: 1.3.1 ostype: Unix",
