@@ -30,7 +30,7 @@ class stix_loader:
             if type(item) == dict and item['type'] in fix_table:
                 fixed_items[index] = fix_table[item['type']](allow_custom=True, **item)
 
-        # self.objects = fixed_items
+        self.objects = fixed_items #TODO: was commented out before cve_search. Delete comment once M.Cutshaw acknowledges
 
     def create_blank(self):
         logging.info('Creating blank stix object')
