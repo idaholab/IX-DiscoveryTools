@@ -6,7 +6,7 @@ plugins:
   network:
     nmap: 172.16.227.133
     sudo: True
-  # cve: True
+  cve: True
 
   # banner:
   #   .csv [hostname, password]  

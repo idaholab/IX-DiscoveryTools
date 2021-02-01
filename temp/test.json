@@ -1,6 +1,6 @@
 {
     "type": "bundle",
-    "id": "bundle--07afce7d-b8da-4c81-9c0f-33ade349cc32",
+    "id": "bundle--d16c0ee1-ff56-41f9-8162-d93e1e06db63",
     "objects": [
         {
             "type": "infrastructure",
@@ -37,9 +37,9 @@
         {
             "type": "infrastructure",
             "spec_version": "2.1",
-            "id": "infrastructure--1d3adf89-6c75-49be-ac5f-0596c3aaeb24",
-            "created": "2021-01-28T22:25:21.664078Z",
-            "modified": "2021-01-28T22:25:21.664078Z",
+            "id": "infrastructure--1790d3d0-4203-4c3b-a93a-3efe9f614b5d",
+            "created": "2021-02-01T17:36:37.955428Z",
+            "modified": "2021-02-01T17:36:37.955428Z",
             "name": "172.16.227.133",
             "x_NIC_vendor": ""
         },
@@ -52,12 +52,402 @@
         {
             "type": "relationship",
             "spec_version": "2.1",
-            "id": "relationship--b2a9abd4-0ded-4cbb-b5b9-88fba1f7123f",
-            "created": "2021-01-28T22:25:21.66612Z",
-            "modified": "2021-01-28T22:25:21.66612Z",
+            "id": "relationship--71ed5533-6cb5-4a94-8a9a-91b6cd045ef7",
+            "created": "2021-02-01T17:36:37.957203Z",
+            "modified": "2021-02-01T17:36:37.957203Z",
             "relationship_type": "has",
-            "source_ref": "infrastructure--1d3adf89-6c75-49be-ac5f-0596c3aaeb24",
+            "source_ref": "infrastructure--1790d3d0-4203-4c3b-a93a-3efe9f614b5d",
             "target_ref": "ipv4-addr--68f39326-0290-5244-bcb2-7a35a5b3dfc2"
+        },
+        {
+            "type": "vulnerability",
+            "spec_version": "2.1",
+            "id": "vulnerability--18e6899c-daef-48dc-be87-bce6b2df7039",
+            "created": "2021-02-01T17:36:51.160415Z",
+            "modified": "2021-02-01T17:36:51.160415Z",
+            "name": "CVE-2008-5161",
+            "description": "Error handling in the SSH protocol in (1) SSH Tectia Client and Server and Connector 4.0 through 4.4.11, 5.0 through 5.2.4, and 5.3 through 5.3.8; Client and Server and ConnectSecure 6.0 through 6.0.4; Server for Linux on IBM System z 6.0.4; Server for IBM z/OS 5.5.1 and earlier, 6.0.0, and 6.0.1; and Client 4.0-J through 4.3.3-J and 4.0-K through 4.3.10-K; and (2) OpenSSH 4.7p1 and possibly other versions, when using a block cipher algorithm in Cipher Block Chaining (CBC) mode, makes it easier for remote attackers to recover certain plaintext data from an arbitrary block of ciphertext in an SSH session via unknown vectors.",
+            "external_references": [
+                {
+                    "source_name": "http://isc.sans.org/diary.html?storyid=5366",
+                    "url": "http://isc.sans.org/diary.html?storyid=5366"
+                },
+                {
+                    "source_name": "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10705",
+                    "url": "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10705"
+                },
+                {
+                    "source_name": "APPLE-SA-2009-11-09-1",
+                    "url": "http://lists.apple.com/archives/security-announce/2009/Nov/msg00000.html"
+                },
+                {
+                    "source_name": "HPSBMA02447",
+                    "url": "http://marc.info/?l=bugtraq&m=125017764422557&w=2"
+                },
+                {
+                    "source_name": "http://openssh.org/txt/cbc.adv",
+                    "url": "http://openssh.org/txt/cbc.adv"
+                },
+                {
+                    "source_name": "49872",
+                    "url": "http://osvdb.org/49872"
+                },
+                {
+                    "source_name": "50035",
+                    "url": "http://osvdb.org/50035"
+                },
+                {
+                    "source_name": "50036",
+                    "url": "http://osvdb.org/50036"
+                },
+                {
+                    "source_name": "RHSA-2009:1287",
+                    "url": "http://rhn.redhat.com/errata/RHSA-2009-1287.html"
+                },
+                {
+                    "source_name": "32740",
+                    "url": "http://secunia.com/advisories/32740"
+                },
+                {
+                    "source_name": "32760",
+                    "url": "http://secunia.com/advisories/32760"
+                },
+                {
+                    "source_name": "32833",
+                    "url": "http://secunia.com/advisories/32833"
+                },
+                {
+                    "source_name": "33121",
+                    "url": "http://secunia.com/advisories/33121"
+                },
+                {
+                    "source_name": "33308",
+                    "url": "http://secunia.com/advisories/33308"
+                },
+                {
+                    "source_name": "34857",
+                    "url": "http://secunia.com/advisories/34857"
+                },
+                {
+                    "source_name": "36558",
+                    "url": "http://secunia.com/advisories/36558"
+                },
+                {
+                    "source_name": "247186",
+                    "url": "http://sunsolve.sun.com/search/document.do?assetkey=1-66-247186-1"
+                },
+                {
+                    "source_name": "http://support.apple.com/kb/HT3937",
+                    "url": "http://support.apple.com/kb/HT3937"
+                },
+                {
+                    "source_name": "http://support.attachmate.com/techdocs/2398.html",
+                    "url": "http://support.attachmate.com/techdocs/2398.html"
+                },
+                {
+                    "source_name": "http://support.avaya.com/elmodocs2/security/ASA-2008-503.htm",
+                    "url": "http://support.avaya.com/elmodocs2/security/ASA-2008-503.htm"
+                },
+                {
+                    "source_name": "http://www.cpni.gov.uk/Docs/Vulnerability_Advisory_SSH.txt",
+                    "url": "http://www.cpni.gov.uk/Docs/Vulnerability_Advisory_SSH.txt"
+                },
+                {
+                    "source_name": "VU#958563",
+                    "url": "http://www.kb.cert.org/vuls/id/958563"
+                },
+                {
+                    "source_name": "http://www.rtpro.yamaha.co.jp/RT/FAQ/Security/CPNI957037.html",
+                    "url": "http://www.rtpro.yamaha.co.jp/RT/FAQ/Security/CPNI957037.html"
+                },
+                {
+                    "source_name": "20081121 OpenSSH security advisory: cbc.adv",
+                    "url": "http://www.securityfocus.com/archive/1/498558/100/0/threaded"
+                },
+                {
+                    "source_name": "20081123 Revised: OpenSSH security advisory: cbc.adv",
+                    "url": "http://www.securityfocus.com/archive/1/498579/100/0/threaded"
+                },
+                {
+                    "source_name": "32319",
+                    "url": "http://www.securityfocus.com/bid/32319"
+                },
+                {
+                    "source_name": "1021235",
+                    "url": "http://www.securitytracker.com/id?1021235"
+                },
+                {
+                    "source_name": "1021236",
+                    "url": "http://www.securitytracker.com/id?1021236"
+                },
+                {
+                    "source_name": "1021382",
+                    "url": "http://www.securitytracker.com/id?1021382"
+                },
+                {
+                    "source_name": "http://www.ssh.com/company/news/article/953/",
+                    "url": "http://www.ssh.com/company/news/article/953/"
+                },
+                {
+                    "source_name": "ADV-2008-3172",
+                    "url": "http://www.vupen.com/english/advisories/2008/3172"
+                },
+                {
+                    "source_name": "ADV-2008-3173",
+                    "url": "http://www.vupen.com/english/advisories/2008/3173"
+                },
+                {
+                    "source_name": "ADV-2008-3409",
+                    "url": "http://www.vupen.com/english/advisories/2008/3409"
+                },
+                {
+                    "source_name": "ADV-2009-1135",
+                    "url": "http://www.vupen.com/english/advisories/2009/1135"
+                },
+                {
+                    "source_name": "ADV-2009-3184",
+                    "url": "http://www.vupen.com/english/advisories/2009/3184"
+                },
+                {
+                    "source_name": "openssh-sshtectia-cbc-info-disclosure(46620)",
+                    "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/46620"
+                },
+                {
+                    "source_name": "https://h20566.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c05157667",
+                    "url": "https://h20566.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c05157667"
+                },
+                {
+                    "source_name": "https://kc.mcafee.com/corporate/index?page=content&id=SB10106",
+                    "url": "https://kc.mcafee.com/corporate/index?page=content&id=SB10106"
+                },
+                {
+                    "source_name": "https://kc.mcafee.com/corporate/index?page=content&id=SB10163",
+                    "url": "https://kc.mcafee.com/corporate/index?page=content&id=SB10163"
+                },
+                {
+                    "source_name": "oval:org.mitre.oval:def:11279",
+                    "url": "https://oval.cisecurity.org/repository/search/definition/oval%3Aorg.mitre.oval%3Adef%3A11279"
+                }
+            ],
+            "cvssV2": {
+                "accessComplexity": "HIGH",
+                "accessVector": "NETWORK",
+                "authentication": "NONE",
+                "availabilityImpact": "NONE",
+                "baseScore": 2.6,
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "NONE",
+                "vectorString": "AV:N/AC:H/Au:N/C:P/I:N/A:N",
+                "version": "2.0"
+            }
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--e734b387-e3da-4663-96ed-c745d625e3ab",
+            "created": "2021-02-01T17:36:51.160961Z",
+            "modified": "2021-02-01T17:36:51.160961Z",
+            "relationship_type": "has",
+            "source_ref": "software--749441b0-b8cb-4e77-9384-8e52e2d876a2",
+            "target_ref": "vulnerability--18e6899c-daef-48dc-be87-bce6b2df7039"
+        },
+        {
+            "type": "vulnerability",
+            "spec_version": "2.1",
+            "id": "vulnerability--0477827b-de92-4977-9bac-4df37dce0364",
+            "created": "2021-02-01T17:36:51.161413Z",
+            "modified": "2021-02-01T17:36:51.161413Z",
+            "name": "CVE-2010-4478",
+            "description": "OpenSSH 5.6 and earlier, when J-PAKE is enabled, does not properly validate the public parameters in the J-PAKE protocol, which allows remote attackers to bypass the need for knowledge of the shared secret, and successfully authenticate, by sending crafted values in each round of the protocol, a related issue to CVE-2010-4252.",
+            "external_references": [
+                {
+                    "source_name": "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10673",
+                    "url": "http://kb.juniper.net/InfoCenter/index?page=content&id=JSA10673"
+                },
+                {
+                    "source_name": "http://seb.dbzteam.org/crypto/jpake-session-key-retrieval.pdf",
+                    "url": "http://seb.dbzteam.org/crypto/jpake-session-key-retrieval.pdf"
+                },
+                {
+                    "source_name": "http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/jpake.c#rev1.5",
+                    "url": "http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/jpake.c#rev1.5"
+                },
+                {
+                    "source_name": "http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/jpake.c.diff?r1=1.4;r2=1.5;f=h",
+                    "url": "http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/jpake.c.diff?r1=1.4;r2=1.5;f=h"
+                },
+                {
+                    "source_name": "https://bugzilla.redhat.com/show_bug.cgi?id=659297",
+                    "url": "https://bugzilla.redhat.com/show_bug.cgi?id=659297"
+                },
+                {
+                    "source_name": "https://github.com/seb-m/jpake",
+                    "url": "https://github.com/seb-m/jpake"
+                },
+                {
+                    "source_name": "oval:org.mitre.oval:def:12338",
+                    "url": "https://oval.cisecurity.org/repository/search/definition/oval%3Aorg.mitre.oval%3Adef%3A12338"
+                }
+            ],
+            "cvssV2": {
+                "accessComplexity": "LOW",
+                "accessVector": "NETWORK",
+                "authentication": "NONE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 7.5,
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "version": "2.0"
+            }
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--251526b7-dd8b-4020-a2cc-64f05beb3443",
+            "created": "2021-02-01T17:36:51.161572Z",
+            "modified": "2021-02-01T17:36:51.161572Z",
+            "relationship_type": "has",
+            "source_ref": "software--749441b0-b8cb-4e77-9384-8e52e2d876a2",
+            "target_ref": "vulnerability--0477827b-de92-4977-9bac-4df37dce0364"
+        },
+        {
+            "type": "vulnerability",
+            "spec_version": "2.1",
+            "id": "vulnerability--a1d1e522-e58c-42d5-9dab-cb8e33359dd0",
+            "created": "2021-02-01T17:36:51.162041Z",
+            "modified": "2021-02-01T17:36:51.162041Z",
+            "name": "CVE-2010-4755",
+            "description": "The (1) remote_glob function in sftp-glob.c and the (2) process_put function in sftp.c in OpenSSH 5.8 and earlier, as used in FreeBSD 7.3 and 8.1, NetBSD 5.0.2, OpenBSD 4.7, and other products, allow remote authenticated users to cause a denial of service (CPU and memory consumption) via crafted glob expressions that do not match any pathnames, as demonstrated by glob expressions in SSH_FXP_STAT requests to an sftp daemon, a different vulnerability than CVE-2010-2632.",
+            "external_references": [
+                {
+                    "source_name": "http://cvsweb.netbsd.org/cgi-bin/cvsweb.cgi/src/crypto/dist/ssh/Attic/sftp.c#rev1.21.6.1",
+                    "url": "http://cvsweb.netbsd.org/cgi-bin/cvsweb.cgi/src/crypto/dist/ssh/Attic/sftp.c#rev1.21.6.1"
+                },
+                {
+                    "source_name": "http://cvsweb.netbsd.org/cgi-bin/cvsweb.cgi/src/crypto/dist/ssh/Attic/sftp-glob.c#rev1.13.12.1",
+                    "url": "http://cvsweb.netbsd.org/cgi-bin/cvsweb.cgi/src/crypto/dist/ssh/Attic/sftp-glob.c#rev1.13.12.1"
+                },
+                {
+                    "source_name": "http://cxib.net/stuff/glob-0day.c",
+                    "url": "http://cxib.net/stuff/glob-0day.c"
+                },
+                {
+                    "source_name": "NetBSD-SA2010-008",
+                    "url": "http://ftp.netbsd.org/pub/NetBSD/security/advisories/NetBSD-SA2010-008.txt.asc"
+                },
+                {
+                    "source_name": "20101007 Multiple Vendors libc/glob(3) resource exhaustion (+0day remote ftpd-anon)",
+                    "url": "http://securityreason.com/achievement_securityalert/89"
+                },
+                {
+                    "source_name": "http://securityreason.com/exploitalert/9223",
+                    "url": "http://securityreason.com/exploitalert/9223"
+                },
+                {
+                    "source_name": "8116",
+                    "url": "http://securityreason.com/securityalert/8116"
+                }
+            ],
+            "cvssV2": {
+                "accessComplexity": "LOW",
+                "accessVector": "NETWORK",
+                "authentication": "SINGLE",
+                "availabilityImpact": "PARTIAL",
+                "baseScore": 4.0,
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+                "version": "2.0"
+            }
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--ff22468a-271d-43ed-a39a-c65fd11c85e3",
+            "created": "2021-02-01T17:36:51.162183Z",
+            "modified": "2021-02-01T17:36:51.162183Z",
+            "relationship_type": "has",
+            "source_ref": "software--749441b0-b8cb-4e77-9384-8e52e2d876a2",
+            "target_ref": "vulnerability--a1d1e522-e58c-42d5-9dab-cb8e33359dd0"
+        },
+        {
+            "type": "vulnerability",
+            "spec_version": "2.1",
+            "id": "vulnerability--e6e0e2f8-af44-4791-9b0f-39bfbf9a4677",
+            "created": "2021-02-01T17:36:51.162615Z",
+            "modified": "2021-02-01T17:36:51.162615Z",
+            "name": "CVE-2017-15906",
+            "description": "The process_open function in sftp-server.c in OpenSSH before 7.6 does not properly prevent write operations in readonly mode, which allows attackers to create zero-length files.",
+            "external_references": [
+                {
+                    "source_name": "101552",
+                    "url": "http://www.securityfocus.com/bid/101552"
+                },
+                {
+                    "source_name": "RHSA-2018:0980",
+                    "url": "https://access.redhat.com/errata/RHSA-2018:0980"
+                },
+                {
+                    "source_name": "https://github.com/openbsd/src/commit/a6981567e8e215acc1ef690c8dbb30f2d9b00a19",
+                    "url": "https://github.com/openbsd/src/commit/a6981567e8e215acc1ef690c8dbb30f2d9b00a19"
+                },
+                {
+                    "source_name": "[debian-lts-announce] 20180910 [SECURITY] [DLA 1500-1] openssh security update",
+                    "url": "https://lists.debian.org/debian-lts-announce/2018/09/msg00010.html"
+                },
+                {
+                    "source_name": "GLSA-201801-05",
+                    "url": "https://security.gentoo.org/glsa/201801-05"
+                },
+                {
+                    "source_name": "https://security.netapp.com/advisory/ntap-20180423-0004/",
+                    "url": "https://security.netapp.com/advisory/ntap-20180423-0004/"
+                },
+                {
+                    "source_name": "https://www.openssh.com/txt/release-7.6",
+                    "url": "https://www.openssh.com/txt/release-7.6"
+                },
+                {
+                    "source_name": "https://www.oracle.com/security-alerts/cpujan2020.html",
+                    "url": "https://www.oracle.com/security-alerts/cpujan2020.html"
+                }
+            ],
+            "cvssV2": {
+                "accessComplexity": "LOW",
+                "accessVector": "NETWORK",
+                "authentication": "NONE",
+                "availabilityImpact": "NONE",
+                "baseScore": 5.0,
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "PARTIAL",
+                "vectorString": "AV:N/AC:L/Au:N/C:N/I:P/A:N",
+                "version": "2.0"
+            },
+            "cvssV3": {
+                "attackComplexity": "LOW",
+                "attackVector": "NETWORK",
+                "availabilityImpact": "NONE",
+                "baseScore": 5.3,
+                "baseSeverity": "MEDIUM",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "privilegesRequired": "NONE",
+                "scope": "UNCHANGED",
+                "userInteraction": "NONE",
+                "vectorString": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "version": "3.0"
+            }
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--568fbd0a-93b3-4be3-b93b-3c3ef3804897",
+            "created": "2021-02-01T17:36:51.162751Z",
+            "modified": "2021-02-01T17:36:51.162751Z",
+            "relationship_type": "has",
+            "source_ref": "software--749441b0-b8cb-4e77-9384-8e52e2d876a2",
+            "target_ref": "vulnerability--e6e0e2f8-af44-4791-9b0f-39bfbf9a4677"
         }
     ]
 }

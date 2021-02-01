@@ -204,9 +204,6 @@ class cpe:
         self.target_sw,
         self.target_hw,
         self.other) = data
-        
-        # print(data)
-        #self.part = Part(self.part)
 
     def _regex_version_range(self, **kwargs):
         for val in self.filters:
@@ -215,10 +212,7 @@ class cpe:
         return True
 
     def match(self,**kwargs):
-        # print(kwargs)
         for item in kwargs:
-            # print(item)
-            # print(self)
             if item == 'version':
                 if self._regex_version_range(**kwargs):
                     pass
@@ -237,21 +231,16 @@ class cpe:
                             return False
             try:
                 if item == 'cpe':
-                    # print(self.data['cpe23Uri'])
                     if kwargs['cpe'] in self.data['cpe23Uri']:
                         print('MATCH')
                         return True
             except Exception as e:
                         print(e)
-            # print('item: ', item)
-            # print('self: ', self.data)
-            # print('attr: ', getattr(self, item))
+
             if item != 'version' and getattr(self, item) == '*':
-                # if kwargs[item] in 
                 print('continuing')
                 continue
             elif re.fullmatch(kwargs[item],getattr(self, item), flags=re.IGNORECASE) is None:
-                # print('none found')
                 return False
   
         return True
@@ -361,10 +350,8 @@ class cve_searcher:
 
         return vuln_cves
 
-    def search2(self, **kwargs):
-        print(kwargs)
+    def search_pass(self, **kwargs):
         self.cpe_pass_through = kwargs['cpe']
-        print(self.cpe_pass_through)   
 
         self.cpe = self.cpe_pass_through[0]
         self.cpe_version = self.cpe_pass_through[1]
@@ -380,16 +367,14 @@ class cve_searcher:
         self.target_hw = self.cpe_pass_through[11]
         self.other = self.cpe_pass_through[12]
         
-        vuln_cves = self.search(cpe_version=self.cpe_version, part = self.part, vendor= self.vendor, product=self.product)
+        vuln_cves = self.search(cpe_version=self.cpe_version, part = self.part, vendor= self.vendor, product=self.product, version = self.version)
 
         return(vuln_cves)
         # print(self.cpe)
 
     def search(self, **kwargs):
-        print(kwargs)
         vuln_cves = []
         
-        print('kwargs:: ', kwargs)
 
         funcs = [partial(self.search_file, data_file, **kwargs) for data_file in self.data_files]
         with Pool(self.proc_num) as p:
@@ -400,7 +385,6 @@ class cve_searcher:
 
         return vuln_cves
         
-
 
     def _init_dirs(self):
         try:
@@ -453,14 +437,7 @@ if __name__ == "__main__":
 
 
     c = cve_searcher()
-    #GOOD
-    # vuln_cves = c.search(vendor='unrealircd', product='unrealircd', cpe_version='2.3', json='json')
     vuln_cves = c.search(vendor='openbsd', product='openssh', cpe_version='2.3', version='4.7p1')
-    # vuln_cves = c.search(cpe='cpe:2.3:a:unrealircd:unrealircd', json='json')
-    # vuln_cves = c.search(cpe='cpe:2.3:a:openbsd:openssh:4.7p1', json='json')
-
-    #BAD
-    # vuln_cves = c.search(vendor='cisco', product='ios', version='V03')
     # vuln_cves = c.search(**args)
 
 
