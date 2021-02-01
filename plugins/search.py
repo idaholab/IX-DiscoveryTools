@@ -3,6 +3,7 @@ import re
 import os
 import argparse
 import requests
+import logging
 from pprint import pprint
 from packaging.version import LegacyVersion
 from bs4 import BeautifulSoup
@@ -237,11 +238,17 @@ class cpe:
             except Exception as e:
                         print(e)
 
-            if item != 'version' and getattr(self, item) == '*':
-                print('continuing')
-                continue
-            elif re.fullmatch(kwargs[item],getattr(self, item), flags=re.IGNORECASE) is None:
-                return False
+            try:
+                if item != 'version' and getattr(self, item) == '*':
+                    print('continuing')
+                    continue
+                elif item == 'version' and getattr(self,item, False) == False:
+                    #require version to be populated
+                    return False
+                elif re.fullmatch(kwargs[item],getattr(self, item), flags=re.IGNORECASE) is None:
+                    return False
+            except TypeError as ty:
+                logging.info('TypeError %s', ty)
   
         return True
 
@@ -377,11 +384,16 @@ class cve_searcher:
         
 
         funcs = [partial(self.search_file, data_file, **kwargs) for data_file in self.data_files]
-        with Pool(self.proc_num) as p:
-            r = list(tqdm(p.imap(self.worker, funcs), 'Processing data files', total=len(funcs)))
-            
-        for sub_list in r:
-            vuln_cves += sub_list
+        try:
+            with Pool(self.proc_num) as p:
+                r = list(tqdm(p.imap(self.worker, funcs), 'Processing data files', total=len(funcs)))
+
+            for sub_list in r:
+                vuln_cves += sub_list
+        except:
+            logging.info('failed at tqdm')
+
+
 
         return vuln_cves
         

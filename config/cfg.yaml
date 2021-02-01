@@ -1,5 +1,5 @@
 file:
-  ./temp/single_software_test.json
+  ./temp/single_bad_test.json
 dest:
   ./temp/test.json
 plugins:
