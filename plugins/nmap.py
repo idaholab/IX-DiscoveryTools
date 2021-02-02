@@ -1,7 +1,7 @@
 from libnmap.process import NmapProcess
 from libnmap.parser import NmapParser, NmapParserException
 from stix2 import Infrastructure, parse, Relationship, Bundle, Software, IPv6Address, IPv4Address, MACAddress, DomainName
-from util.util import gen_uuid
+from util.helper import gen_uuid
 import logging
 
 def mapper(d, obj):
@@ -12,12 +12,12 @@ def mapper(d, obj):
     return l
 
 class nmap:
-    def __init__ (self, args, stix_loader, top_ports=1000, T4=False):
+    def __init__ (self, args, stix_loader, nmap_args=None):
         self.args = args
         self.stix_loader = stix_loader
-        command_string = f"-sV -O --top-ports {int(top_ports)}"
-        if T4:
-            command_string += " -T4"
+        command_string = f"-sV -O "
+        if not self.args.plugins.network.nmap_args is None:
+            command_string += self.args.plugins.network.nmap_args
         logging.info(command_string)
         self.nm = NmapProcess(args.plugins.network.nmap, options=command_string)
 
@@ -51,8 +51,6 @@ class nmap:
     def process_service(self, services):
         l = []
         for serv in services:
-
-            
             d = {'x_cpe': 'cpelist',
             'x_service': 'service',
             'x_port' : 'port',
@@ -95,10 +93,10 @@ class nmap:
     def run(self, sudo):
         if sudo == True:
             logging.info('Running scan as root')
-            rc = self.nm.sudo_run(run_as='root')
+            self.nm.sudo_run(run_as='root')
         else:
             logging.info('Running scan without sudo')
-            rc = self.nm.run()
+            self.nm.run()
 
         if self.nm.rc != 0:
             logging.critical('{self.nm.stderr}')
@@ -125,7 +123,6 @@ class nmap:
                 tmp_host = host.address
             else:
                 tmp_host = host.mac
-
             
             host_obj = Infrastructure(id=gen_uuid('infrastructure'),name=tmp_host, allow_custom=True, x_NIC_vendor=host.vendor)
             logging.info(f'host obj: {host_obj}')
@@ -140,43 +137,28 @@ class nmap:
 
                 d = mapper(d, os)
                 d['allow_custom'] = True
-            
-                s = Software(id=gen_uuid('software'),**d)
+                d['id'] = gen_uuid('software')
+
+                s = Software(**d)
                 rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
                 l.append(s)
                 l.append(rel)
                 logging.debug(f'os obj: {s}')
 
-            if host.ipv4:
-                s = IPv4Address(value=host.ipv4)
-                rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
-                l.append(s)
-                l.append(rel)
-                logging.debug(f'host ipv4 obj: {s}')
-
-            if host.ipv6:
-                s = IPv6Address(value=host.ipv6)
-                rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
-                l.append(s)
-                l.append(rel)
-                logging.debug(f'host ipv6 obj: {s}')
+            for item in [(host.ipv4, IPv4Address), (host.ipv6, IPv6Address), 
+            (host.mac, MACAddress), (host.hostnames, DomainName)]:
+                if item[0]:
+                    value = item[0]
+                    obj = item[1]
+                    if not isinstance(item[0], list):
+                        value = [value]
+                    for single in value:
+                        s = obj(value=single)
+                        rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
+                        l.append(s)
+                        l.append(rel)
+                        logging.info(f'Adding {type(obj)}: {s}')
             
-            if host.mac:
-                s = MACAddress(value=host.mac)
-                rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
-                l.append(s)
-                l.append(rel)
-                logging.debug(f'mac obj: {s}')
-
-            if host.hostnames:
-                for name in host.hostnames:
-                    s = DomainName(value=name)
-                    rel = Relationship(source_ref=host_obj, relationship_type='has', target_ref=s)
-                    l.append(s)
-                    l.append(rel)
-                    logging.debug(f'hostname obj: {s}')
-
-
             service_objs = self.process_service(host.services)
             rels = self.link_to_obj(host_obj, service_objs)
             l += service_objs

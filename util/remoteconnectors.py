@@ -1,5 +1,10 @@
 from paramiko import SSHClient, AutoAddPolicy
+from pypsrp.client import Client as PSClient
 import fabric
+class result: 
+    def __init__(self, **kwargs): # stderr=None, stdout=None, exited=None
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
 class RemoteConnection: #this might just be a template, we'll see if there is any use in making it a proper base class
     def __init__(self, ip, port, user=None, password=None):
@@ -8,24 +13,6 @@ class RemoteConnection: #this might just be a template, we'll see if there is an
         self.user = user
         self.password = password
         self.setup()
-
-    def connect(self):
-        pass
-
-    def runcommmand(self, command):
-        pass
-
-    def runbulk(self, commands):
-        pass
-
-    def read(self):
-        pass
-
-    def setup(self):
-        pass
-
-    def test(self, *args, **kwargs):
-        return False
 
 
 class SSHConnectionParamiko(RemoteConnection):
@@ -64,6 +51,29 @@ class SSHConnectionFabric(RemoteConnection):
         channel.invoke_shell()
         return channel.recv(1048576).decode()
 
-        # self.client.connect(self.ip, port=self.port, username=self.user, password=self.password)
+class PSConnection(RemoteConnection):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def setup(self):
+        self.client = PSClient(self.ip, ssl=False, port=self.port, username=self.user, password=self.password)
+        
+    def connect(self):
+        pass
+
+    def runcommmand(self, cmd, sudo=None):
+        stdout, stderr, had_errors = self.client.execute_ps(cmd) 
+        return result(stdout=stdout, stderr=stderr, exited=had_errors)
+
+    def listen(self):
+        return None
+
+class PSConnectionSSL(PSConnection):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def connect(self):
+        self.client = pypsrp.client.Client(self.ip, ssl=True, port=self.port, username=self.user, password=self.password)
+
 
     

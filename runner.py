@@ -18,7 +18,7 @@ class plugin_runner:
         try:
             if self.args.plugins.network.nmap:
                 logging.info('starting nmap plugin')
-                nm = nmap(self.args, self.stix_loader, T4=self.args.plugins.network.T4)
+                nm = nmap(self.args, self.stix_loader)
                 nm.run(plugins.sudo)
         except Exception as e:
             logging.exception(f'Caught exception in nmap plugin: {e}')

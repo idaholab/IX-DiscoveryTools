@@ -21,7 +21,7 @@ def ext_check(expected_extension):
 if __name__ == "__main__":
 
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.WARNING)
     plugin_list = './config/plugin_config.txt'
     
     parser = ArgumentParser(description='IX AutoDiscover Utility.')
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dest', type=ext_check('.json'), default='./temp/test.json', help='Path to save stix bundle')
     parser.add_argument('-p.1', '--plugins.network.nmap', help='CIDR network to run nmap on')# this gets called no matter what..
     parser.add_argument('-p.2', '--plugins.network.sudo', action='store_true', default=False, help='run nmap as sudo, some TCP/IP fingerprinting requires this')
-    parser.add_argument('-p.3', '--plugins.network.T4', action='store_true', default=False, help='run nmap with T4')
+    parser.add_argument('-p.3', '--plugins.network.nmap_args', default=None, help='additional args for nmap')
     parser.add_argument('-p.4', '--plugins.pcap.file',  help='file to ingest for pcap plugin')
     parser.add_argument('-p.5', '--plugins.cve', action='store_true', help='whether or not to run cve_search')
     parser.add_argument('-p.6', '--plugins.remote.csv', help='csv cred file for remote information gathering')
