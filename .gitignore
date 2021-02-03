@@ -145,3 +145,5 @@ poetry.lock
 
 .vscode
 *.code-workspace
+*.json
+*.pcapng

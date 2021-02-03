@@ -27,8 +27,8 @@ class stix_loader:
         
         fixed_items = objects[:]
         for index, item in enumerate(objects):
-            if type(item) == dict and item['type'] in fix_table:
-                fixed_items[index] = fix_table[item['type']](allow_custom=True, **item)
+            if type(item) == dict and item['type'] in self.fix_table:
+                fixed_items[index] = self.fix_table[item['type']](allow_custom=True, **item)
 
         self.objects = fixed_items #TODO: was commented out before cve_search. Delete comment once M.Cutshaw acknowledges
 
@@ -50,5 +50,5 @@ class stix_loader:
         #self.ms_sink.add(items)
         logging.info('Merging:')
         for item in items:
-            logging.info(f'Adding:\n {item}')
+            logging.debug(f'Adding:\n {item}')
             self.ms_sink.add(item)

@@ -1,6 +1,7 @@
 from plugins.nmap import nmap
 from plugins.pcap import pcap
 from plugins.cve_search import cve_search
+from plugins.remote_info import RemoteInfo
 import logging
 
 class plugin_runner:
@@ -18,7 +19,7 @@ class plugin_runner:
             if self.args.plugins.network.nmap:
                 logging.info('starting nmap plugin')
                 nm = nmap(self.args, self.stix_loader)
-                x = nm.run(plugins.sudo)
+                nm.run(plugins.sudo)
         except Exception as e:
             logging.exception(f'Caught exception in nmap plugin: {e}')
 
@@ -28,6 +29,10 @@ class plugin_runner:
 
         if self.args.plugins.cve:
             c = cve_search(self.args, self.stix_loader)
+            c.run()
+
+        if self.args.plugins.remote:
+            c = RemoteInfo(self.args, self.stix_loader)
             c.run()
         
         self.stix_loader.write_out(self.args.dest)

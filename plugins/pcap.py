@@ -2,23 +2,12 @@ import pyshark
 import logging
 from stix2 import Infrastructure, IPv4Address, Relationship, Software, NetworkTraffic
 from stix2.datastore import Filter, FilterSet
-from util import gen_uuid
+from util.helper import gen_uuid, multi_filt
 
 def packet_obj(protocol, service, src, dst):
     return NetworkTraffic(id=gen_uuid('network-traffic'), #name=f'{service if service else protocol} traffic', 
     protocols=[protocol, service] if service else [protocol],
     src_ref=src, dst_ref=dst)
-
-def link(src, dst):
-    pass
-
-def multi_filt(op='=', **kwargs):
-    fs = FilterSet()
-    for key in kwargs:
-        if key == 'op':
-            continue
-        fs.add(Filter(key, op , kwargs[key]))
-    return fs
 
 def get_other_ip(packet, ip):
     newobj_ip = None
@@ -185,10 +174,3 @@ class pcap:
             self.stix_loader.merge([software, rel])
         
         return software
-
-    # below traverse methods should prob be moved to the stix loader class eventually
-    def reverse_traverse(self): #this should follow an edge backwards
-        return None
-
-    def traverse(self): #this should follow an edge forwards
-        return None
