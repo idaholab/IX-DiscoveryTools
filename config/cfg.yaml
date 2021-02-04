@@ -1,15 +1,12 @@
 file:
-  ./temp/test_infras.json
+  ./temp/empty.json
 dest:
-  ./temp/test_infras_remote.json
+  ./temp/test_linux_hw.json
 plugins:
-  # network:
-  #   nmap: 192.168.153.129
-  #   sudo: True
+  network:
+    nmap: 192.168.153.130
+    sudo: True
   # cve: True
   remote:
-    csv: ./temp/creds.csv
-  # banner:
-  #   .csv [hostname, password]  
-  #   --> scrape banner
-  #   --> save back inti Infrastructure object
+    csv: ./temp/creds_linux.csv
+

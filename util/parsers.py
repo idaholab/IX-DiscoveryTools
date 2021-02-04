@@ -94,6 +94,52 @@ class MainParser:
     def count_prefix(self, line):
         return len(line) - len(line.lstrip(' '))
 
+class BiosParser:
+    def __init__(self,  delimter=None):
+        self.delimter = delimter
+    @staticmethod
+    def link(src, dst, rel_type='related-to'):
+        return Relationship(source_ref=src, target_ref=dst, relationship_type=rel_type)
+
+    def parse(self, text, infra_obj):
+        print(text)
+        l = []
+        lines = text.split('\n')
+        counter = 0
+        self.header = []
+        while self.header == [] or self.header == ['']:
+            self.header = lines[counter].split(self.delimter)
+            counter += 1
+        print('HEADER ', self.header)
+        for line in lines[counter:]: 
+            items = line.split(self.delimter)
+            if items == [] or items == ['']:
+                continue
+            obj = self.create_object(items)
+            l.append(obj)
+            rel = self.link(infra_obj, obj)
+            l.append(rel)
+        return l
+
+    def create_object(self, items):
+        attrib = {}
+        # print('items: ', items)
+        for index, value in enumerate(items):
+            try:
+                if self.header[index] == 'CMD' or self.header[index] == 'Name':
+                    attrib['name'] = value
+                    attrib['command_line'] = value
+                elif self.header[index] == 'PID' or self.header[index] == 'ProcessId':
+                    attrib['pid'] = value
+                else:
+                    attrib[f'x_{self.header[index]}'] = value
+            except Exception as e:
+                logging.info(e)
+
+        attrib['id'] = gen_uuid('process')
+        attrib['allow_custom'] = True
+        return Process(**attrib)
+        
 class ProcessParser:
     def __init__(self,  delimter=None):
         self.delimter = delimter
@@ -111,6 +157,7 @@ class ProcessParser:
         while self.header == [] or self.header == ['']:
             self.header = lines[counter].split(self.delimter)
             counter += 1
+        print('HEADER ', self.header)
         for line in lines[counter:]: 
             items = line.split(self.delimter)
             if items == [] or items == ['']:
@@ -125,13 +172,17 @@ class ProcessParser:
         attrib = {}
         # print('items: ', items)
         for index, value in enumerate(items):
-            if self.header[index] == 'CMD' or self.header[index] == 'Name':
-                attrib['name'] = value
-                attrib['command_line'] = value
-            elif self.header[index] == 'PID' or self.header[index] == 'ProcessId':
-                attrib['pid'] = value
-            else:
-                attrib[f'x_{self.header[index]}'] = value
+            try:
+                if self.header[index] == 'CMD' or self.header[index] == 'Name':
+                    attrib['name'] = value
+                    attrib['command_line'] = value
+                elif self.header[index] == 'PID' or self.header[index] == 'ProcessId':
+                    attrib['pid'] = value
+                else:
+                    attrib[f'x_{self.header[index]}'] = value
+            except Exception as e:
+                logging.info(e)
+
         attrib['id'] = gen_uuid('process')
         attrib['allow_custom'] = True
         return Process(**attrib)

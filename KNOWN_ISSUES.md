@@ -4,3 +4,8 @@
 - Handle software without a version better.  Currently this is handled by try except blocks around tqdm in search.py.search
     
     - must require version otherwise returned list would be giant
+
+
+- parser
+    - TODO: When running remote plugin, if infrastructure object doesn't hve the correct IP passed into it via -csv flag, it will fail not so gracefully
+-

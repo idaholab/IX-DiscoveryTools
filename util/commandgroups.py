@@ -16,10 +16,13 @@ class CommandGroup:
         self.test_command = test_command
 
     def test(self):
-        result = self.connector.runcommmand(self.test_command)
-        if result.exited == 0:
-            return True
-        return False
+        try:
+            result = self.connector.runcommmand(self.test_command)
+            if result.exited == 0:
+                return True
+            return False
+        except Exception:
+            return False
 
     def add(self, cmd):
         self.commands.append(cmd)
