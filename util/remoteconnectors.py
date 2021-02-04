@@ -14,7 +14,6 @@ class RemoteConnection: #this might just be a template, we'll see if there is an
         self.password = password
         self.setup()
 
-
 class SSHConnectionParamiko(RemoteConnection):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

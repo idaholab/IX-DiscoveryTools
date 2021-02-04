@@ -5,8 +5,6 @@ from stix2.datastore import Filter, FilterSet
 from util.helper import gen_uuid
 import logging
 
-
-
 class MainParser:
     def __init__(self):
         pass
@@ -24,7 +22,6 @@ class MainParser:
         for item in items_to_connect:
             l.append(Relationship(source_ref=infra, target_ref=item, relationship_type='has'))
         return l
-        
     
     def to_stix(self):
         objs = []
@@ -33,8 +30,6 @@ class MainParser:
             objs.extend(p_objs)
             objs.append(main_obj)
         return ([main_obj], objs)
-
-
 
     def create_object(self, name, data):
         attribs = {}
@@ -114,16 +109,10 @@ class ProcessParser:
         counter = 0
         self.header = []
         while self.header == [] or self.header == ['']:
-            if self.delimter is None:
-                self.header = lines[counter].split()
-            else:
-                self.header = lines[counter].split(self.delimter)
+            self.header = lines[counter].split(self.delimter)
             counter += 1
         for line in lines[counter:]: 
-            if self.delimter is None:
-                items = line.split()
-            else:
-                items = line.split(self.delimter)
+            items = line.split(self.delimter)
             if items == [] or items == ['']:
                 continue
             obj = self.create_object(items)
@@ -146,4 +135,3 @@ class ProcessParser:
         attrib['id'] = gen_uuid('process')
         attrib['allow_custom'] = True
         return Process(**attrib)
-
