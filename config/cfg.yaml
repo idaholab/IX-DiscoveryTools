@@ -1,15 +1,14 @@
-file:
-  ./temp/test_infras.json
+# file:
+#   ./temp/test999.json
 dest:
-  ./temp/test_infras_remote.json
+  ./temp/hardware_test.json
 plugins:
-  # network:
-  #   nmap: 192.168.153.129
-  #   sudo: True
+  network:
+    nmap: 192.168.91.149
+    sudo: True
+    nmap_args: -T4 -p5985,5986
   # cve: True
-  remote:
-    csv: ./temp/creds.csv
-  # banner:
-  #   .csv [hostname, password]  
-  #   --> scrape banner
-  #   --> save back inti Infrastructure object
+  remote: 
+    csv: /home/jack/code/autodiscover/something.csv
+#  pcap:
+#    file: /home/jack/code/autodiscover/test2.pcapng
