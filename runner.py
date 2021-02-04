@@ -31,7 +31,7 @@ class plugin_runner:
             c = cve_search(self.args, self.stix_loader)
             c.run()
 
-        if self.args.plugins.remote:
+        if self.args.plugins.remote.csv:
             c = RemoteInfo(self.args, self.stix_loader)
             c.run()
         

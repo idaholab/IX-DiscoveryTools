@@ -51,6 +51,7 @@ class nmap:
     def process_service(self, services):
         l = []
         for serv in services:
+            if not serv.open():
                 continue
             d = {'x_cpe': 'cpelist',
             'x_service': 'service',
