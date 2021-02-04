@@ -1,9 +1,15 @@
 file:
-  ./temp/infrastructure.json
+  ./temp/test_infras.json
 dest:
-  ./temp/test.json
+  ./temp/test_infras_remote.json
 plugins:
-  network:
-    nmap: 172.16.227.133
-    sudo: True
-  cve: True
+  # network:
+  #   nmap: 192.168.153.129
+  #   sudo: True
+  # cve: True
+  remote:
+    csv: ./temp/creds.csv
+  # banner:
+  #   .csv [hostname, password]  
+  #   --> scrape banner
+  #   --> save back inti Infrastructure object

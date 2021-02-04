@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     logger = logging.getLogger()
     logger.setLevel(logging.WARNING)
-    plugin_list = './config/plugin_config.txt'
+    # plugin_list = './config/plugin_config.txt'
     
     parser = ArgumentParser(description='IX AutoDiscover Utility.')
     parser.add_argument('-f', '--file', type=ext_check('.json'), help='Path to stix file to read in')
