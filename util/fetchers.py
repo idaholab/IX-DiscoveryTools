@@ -20,6 +20,7 @@ class CSVFetcher:
         return l
 
     def get_obj_or_create(self, ip):
+        print("IP IS: ", ip)
         obj = get_infrastructure_by_ip(self.stix_loader, ip)
         if obj is None:
             ip_obj = IPv4Address(value=ip)

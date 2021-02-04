@@ -108,6 +108,7 @@ class ProcessParser:
         return Relationship(source_ref=src, target_ref=dst, relationship_type=rel_type)
 
     def parse(self, text, infra_obj):
+        print(text)
         l = []
         lines = text.split('\n')
         counter = 0
@@ -133,7 +134,7 @@ class ProcessParser:
 
     def create_object(self, items):
         attrib = {}
-
+        # print('items: ', items)
         for index, value in enumerate(items):
             if self.header[index] == 'CMD' or self.header[index] == 'Name':
                 attrib['name'] = value
