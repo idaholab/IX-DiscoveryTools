@@ -2,6 +2,7 @@
 temp/
 cve_data/
 data/
+config/cfg.yaml
 # MAC
 .DS_Store
 # Byte-compiled / optimized / DLL files

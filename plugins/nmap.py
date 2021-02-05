@@ -111,6 +111,7 @@ class nmap:
         print("Scan finished... Parsing...")
         try:
             output = self.nm.stdout
+
             if Handler.output_active:
                 Handler.OutputText(output, 'nmap.txt')
             self.results = NmapParser.parse(output)
@@ -120,6 +121,8 @@ class nmap:
         l = []
 
         for host in self.results.hosts:
+            if not host.is_up():
+                continue
             
             if len(host.os_class_probabilities()):
                 os = host.os_class_probabilities().pop()
