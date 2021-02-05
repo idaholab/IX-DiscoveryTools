@@ -1,4 +1,5 @@
 from util.parsers import MainParser, ProcessParser
+from util.handler import Handler
 
 class Command:
     def __init__(self, cmd, parser, sudo=False):
@@ -32,7 +33,10 @@ class CommandGroup:
         for command in self.commands:
             result = self.connector.runcommmand(command.cmd, sudo=command.sudo)
             if result.exited == 0:
-                objs.extend(command.parse(result.stdout, infra_obj))
+                output = result.stdout
+                if Handler.output_active:
+                    Handler.OutputText(output, f'{command.cmd}.txt')
+                objs.extend(command.parse(output, infra_obj))
         return objs
         
     def register(self, connector):

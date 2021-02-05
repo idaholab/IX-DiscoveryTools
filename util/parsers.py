@@ -5,6 +5,7 @@ from stix2.datastore import Filter, FilterSet
 from util.helper import gen_uuid
 import logging
 
+        
 class MainParser:
     def __init__(self):
         pass
@@ -102,7 +103,6 @@ class BiosParser:
         return Relationship(source_ref=src, target_ref=dst, relationship_type=rel_type)
 
     def parse(self, text, infra_obj):
-        print(text)
         l = []
         lines = text.split('\n')
         counter = 0
@@ -110,7 +110,7 @@ class BiosParser:
         while self.header == [] or self.header == ['']:
             self.header = lines[counter].split(self.delimter)
             counter += 1
-        print('HEADER ', self.header)
+        logging.info(f'HEADER {self.header}')
         for line in lines[counter:]: 
             items = line.split(self.delimter)
             if items == [] or items == ['']:
@@ -156,7 +156,7 @@ class ProcessParser:
         while self.header == [] or self.header == ['']:
             self.header = lines[counter].split(self.delimter)
             counter += 1
-        print('HEADER ', self.header)
+        logging.info(f'HEADER {self.header}')
         for line in lines[counter:]: 
             items = line.split(self.delimter)
             if items == [] or items == ['']:
