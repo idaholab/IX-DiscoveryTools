@@ -1,5 +1,6 @@
 from stix2 import MemoryStore, Infrastructure, Relationship, Software
 import logging
+from util.handler import Handler
 
 class stix_loader:
     def __init__(self, in_file=None):
@@ -52,3 +53,5 @@ class stix_loader:
         for item in items:
             logging.debug(f'Adding:\n {item}')
             self.ms_sink.add(item)
+        Handler.stixoutput()
+        

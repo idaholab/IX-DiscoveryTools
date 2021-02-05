@@ -2,10 +2,13 @@ from jsonargparse import ArgumentParser, ActionConfigFile
 from loader import stix_loader
 from runner import plugin_runner
 from plugins.nmap import nmap
+from util.handler import Handler
 import logging
 import pathlib
 import shutil
 import os 
+import sys
+
 
 def ext_check(expected_extension):
     """
@@ -20,8 +23,11 @@ def ext_check(expected_extension):
 
 if __name__ == "__main__":
 
-    logger = logging.getLogger()
-    logger.setLevel(logging.WARNING)
+    # logger = logging.getLogger()
+    # logger.setLevel(logging.WARNING)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.WARNING)
+    logging.getLogger().addHandler(ch)
     # plugin_list = './config/plugin_config.txt'
     
     parser = ArgumentParser(description='IX AutoDiscover Utility.')
@@ -39,10 +45,20 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     in_file = args.file
-
     logging.info('Creating stix loader')
     sl = stix_loader(in_file=in_file)
+    print('WE ARE IN TESTING MODE!!!')
+    i = input('Ouput directory name: ')
+    if os.path.exists(i):
+        print(f'The directory path: {i} already exists, refusing to overwrite!')
+        sys.exit()
+    else:
+        Handler.registerOutputDir(i)
+    Handler.registerSTIXLoader(sl)
+    Handler.registerLogger()
+    Handler.startPCAP()
     logging.info('Creating plugin runner')
     pr = plugin_runner(args, sl)
     logging.info('Running on plugin runner')
     pr.run()
+    Handler.finish()
