@@ -94,15 +94,26 @@ class MainParser:
     def count_prefix(self, line):
         return len(line) - len(line.lstrip(' '))
 
-class BiosParser:
+class InfParser:
+    '''
+    Attempt at creating a
+    '''
     def __init__(self,  delimter=None):
         self.delimter = delimter
+
+
+class InfraParser:
+    #TODO: REGEX OUT COMMA IN RETUREND 
+    def __init__(self,  delimter=None, name=None):
+        self.delimter = delimter
+        self.name = name
+
     @staticmethod
     def link(src, dst, rel_type='related-to'):
         return Relationship(source_ref=src, target_ref=dst, relationship_type=rel_type)
 
     def parse(self, text, infra_obj):
-        print(text)
+        print('TEXT: ', text)
         l = []
         lines = text.split('\n')
         counter = 0
@@ -122,24 +133,27 @@ class BiosParser:
         return l
 
     def create_object(self, items):
+        '''
+        PROBLEM WITH INDEX/VALUES THAT HAVE COMMA, REGEX IT OUT
+        '''
         attrib = {}
-        # print('items: ', items)
+        print('items: ', items)
         for index, value in enumerate(items):
             try:
-                if self.header[index] == 'CMD' or self.header[index] == 'Name':
+                attrib['name'] = self.name
+                if self.header[index] == '' or value == '':
+                    continue
+                elif self.header[index] == 'Name':
                     attrib['name'] = value
-                    attrib['command_line'] = value
-                elif self.header[index] == 'PID' or self.header[index] == 'ProcessId':
-                    attrib['pid'] = value
                 else:
                     attrib[f'x_{self.header[index]}'] = value
             except Exception as e:
                 logging.info(e)
 
-        attrib['id'] = gen_uuid('process')
+        attrib['id'] = gen_uuid('infrastructure')
         attrib['allow_custom'] = True
-        return Process(**attrib)
-        
+        return Infrastructure(**attrib)
+
 class ProcessParser:
     def __init__(self,  delimter=None):
         self.delimter = delimter

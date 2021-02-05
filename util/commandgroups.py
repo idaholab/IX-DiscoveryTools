@@ -1,4 +1,4 @@
-from util.parsers import MainParser, ProcessParser
+from util.parsers import MainParser, ProcessParser, InfraParser
 
 class Command:
     def __init__(self, cmd, parser, sudo=False):
@@ -44,5 +44,13 @@ c.add(Command('ps -A -l', ProcessParser(), sudo=True))
 CommandGroups.append(c)
 c = CommandGroup('Write-Host True')
 c.add(Command('wmic process list full /format:csv', ProcessParser(delimter=',')))
+c.add(Command('wmic bios list /format:csv', InfraParser(delimter=',', name='BIOSInfo')))
+c.add(Command('wmic memorychip list /format:csv', InfraParser(delimter=',', name='MemInfo')))
+c.add(Command('wmic baseboard list /format:csv', InfraParser(delimter=',', name='BaseboardInfo')))
+c.add(Command('wmic computersystem list /format:csv', InfraParser(delimter=',', name='ComputersystemInfo')))
+c.add(Command('wmic cpu list /format:csv', InfraParser(delimter=',', name='CPUInfo')))
+c.add(Command('wmic csproduct list /format:csv', InfraParser(delimter=',', name='csproductInfo')))
+# c.add(Command('wmic bios get serialnumber', BiosParser(delimter=',', name='serialInfo')))
+
 CommandGroups.append(c)
 

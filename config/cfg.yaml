@@ -1,12 +1,14 @@
 file:
   ./temp/empty.json
 dest:
-  ./temp/test_linux_hw.json
+  ./temp/test_wind_hw.json
 plugins:
   network:
-    nmap: 192.168.153.130
+    nmap: 192.168.153.129
     sudo: True
-  # cve: True
-  remote:
-    csv: ./temp/creds_linux.csv
+  # pcap:
+
+  cve: True
+  # remote:
+  #   csv: ./temp/creds_win.csv
 
