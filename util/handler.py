@@ -36,7 +36,7 @@ class OutputHandler:
         self.output_active = True
     
     def OutputText(self, text, filename):
-        filename = filename.replace(' ', '_').replace('-', '_').replace(':', '_') # this is terrible
+        filename = filename.replace(' ', '_').replace('-', '_').replace(':', '_').replace('/', '') # this is terrible
         with open(os.path.join(self.dir, filename), 'w') as f:
             f.write(text)
 

@@ -1,6 +1,7 @@
 #CUSTOM
 temp/
 cve_data/
+data/
 # MAC
 .DS_Store
 # Byte-compiled / optimized / DLL files

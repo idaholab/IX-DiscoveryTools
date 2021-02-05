@@ -8,7 +8,7 @@ plugins:
     sudo: True
   # pcap:
 
-  cve: True
-  # remote:
-  #   csv: ./temp/creds_win.csv
+  # # cve: True
+  remote:
+    csv: ./temp/creds_win.csv
 
