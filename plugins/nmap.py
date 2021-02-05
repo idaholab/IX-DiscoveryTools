@@ -49,6 +49,8 @@ class nmap:
         return l
 
     def process_service(self, services):
+        if self.args.plugins.network.no_services:
+            return []
         l = []
         for serv in services:
             if not serv.open():
