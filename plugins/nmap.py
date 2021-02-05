@@ -3,6 +3,8 @@ from libnmap.parser import NmapParser, NmapParserException
 from stix2 import Infrastructure, parse, Relationship, Bundle, Software, IPv6Address, IPv4Address, MACAddress, DomainName
 from util.helper import gen_uuid
 import logging
+from util.handler import Handler
+
 
 def mapper(d, obj):
     l = {}
@@ -104,7 +106,10 @@ class nmap:
             logging.critical('{self.nm.stderr}')
         print("Scan finished... Parsing...")
         try:
-            self.results = NmapParser.parse(self.nm.stdout)
+            output = self.nm.stdout
+            if Handler.output_active:
+                Handler.OutputText(output, 'nmap.txt')
+            self.results = NmapParser.parse(output)
         except NmapParserException as e:
             logging.exception(f"Exception raised while parsing scan: {e.msg}")
 
