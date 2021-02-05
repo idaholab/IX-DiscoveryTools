@@ -20,7 +20,7 @@ class nmap:
         command_string = f"-sV "
         if not self.args.plugins.network.nmap_args is None:
             command_string += self.args.plugins.network.nmap_args
-        if not self.args.plugins.network.sudo:
+        if self.args.plugins.network.sudo:
             command_string += f" -O"
         logging.info(command_string)
         self.nm = NmapProcess(args.plugins.network.nmap, options=command_string)
