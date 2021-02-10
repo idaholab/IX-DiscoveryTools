@@ -2,6 +2,15 @@ from datetime import datetime
 import os
 import pyshark
 import logging
+from tempfile import TemporaryDirectory
+from multiprocessing import Process, Manager
+from time import sleep
+
+def worker(cap, manager):
+    for _ in cap.sniff_continuously():
+        if manager['done']:
+            break
+
 class OutputHandler:
     def __init__(self):
         self.starttime = datetime.now()
@@ -28,6 +37,7 @@ class OutputHandler:
 
     def registerOutputDir(self, dir):
         self.dealdatadir()
+        self.dir_basename = dir
         self.dir = os.path.join('data', dir)
 
         if not os.path.exists(self.dir):
@@ -36,20 +46,28 @@ class OutputHandler:
         self.output_active = True
     
     def OutputText(self, text, filename):
-        filename = filename.replace(' ', '_').replace('-', '_').replace(':', '_').replace('/', '') # this is terrible
+        filename = filename.replace(' ', '_').replace('-', '_').replace(':', '_') # this is terrible
         with open(os.path.join(self.dir, filename), 'w') as f:
             f.write(text)
 
     def startPCAP(self, interface='ens33'):
-        pass
-        # pcap_path = os.path.join(self.dir, 'capture.pcap')
-        # cap = pyshark.LiveCapture(output_file=pcap_path, interface=interface)
-        # for packet in cap.sniff_continuously(packet_count=1):
-        #     print(packet)
-        # cap.close()
+        self.f = TemporaryDirectory()
+        self.pcap_path = os.path.join(self.f.name, 'capture.pcap')
+        self.cap = pyshark.LiveCapture(output_file=self.pcap_path , interface=interface)
+        manager = Manager()
+        self.done = manager.dict({'done': False})
+        self.t = Process(target=worker, args=(self.cap, self.done))
+        self.t.start()
+
 
     def stopPCAP(self):
-        pass
+        self.cap.close()
+        self.done['done'] = True
+        sleep(10)
+        self.t.terminate()
+        os.rename(self.pcap_path, os.path.join(self.dir, 'capture.pcap'))
+        
+
 
     def writeMetadata(self):
         endtime = datetime.now()
@@ -59,7 +77,7 @@ class OutputHandler:
     def finish(self):
         self.stopPCAP()
         self.writeMetadata()
-        self.stixoutput(name=self.dir)
+        self.stixoutput(name=self.dir_basename)
 
     def stixoutput(self, name=None):
         if not self.stix_loader:

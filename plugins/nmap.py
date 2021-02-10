@@ -17,11 +17,15 @@ class nmap:
     def __init__ (self, args, stix_loader, nmap_args=None):
         self.args = args
         self.stix_loader = stix_loader
-        command_string = f"-sV "
+        command_string = ''
         if not self.args.plugins.network.nmap_args is None:
-            command_string += self.args.plugins.network.nmap_args
+            command_string += f' {self.args.plugins.network.nmap_args}'
+        if not self.args.plugins.network.no_services is None:
+            command_string += f" -sV"
         if self.args.plugins.network.sudo:
             command_string += f" -O"
+        if not self.args.plugins.network.host_discovery:
+            command_string += f" -Pn"
         logging.info(command_string)
         self.nm = NmapProcess(args.plugins.network.nmap, options=command_string)
 

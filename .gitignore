@@ -149,3 +149,4 @@ poetry.lock
 *.code-workspace
 *.json
 *.pcapng
+data/

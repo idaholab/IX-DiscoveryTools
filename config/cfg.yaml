@@ -1,11 +1,11 @@
-file:
-  ./temp/empty.json
-dest:
-  ./temp/test_all.json
+# file:
+#   ./temp/empty.json
+# dest:
+#   ./temp/test_all.json
 plugins:
   network:
-    nmap: 192.168.153.0/24
-    sudo: True
+    nmap: 192.168.27.2
+    # sudo: True
   # pcap:
 
   # # cve: True

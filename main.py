@@ -30,16 +30,18 @@ if __name__ == "__main__":
     logging.getLogger().addHandler(ch)
     # plugin_list = './config/plugin_config.txt'
     
-    parser = ArgumentParser(description='IX AutoDiscover Utility.')
+    parser = ArgumentParser(description='IX AutoDiscover Utility.', default_config_files=['config/cfg.yaml'])
     parser.add_argument('-f', '--file', type=ext_check('.json'), help='Path to stix file to read in')
     parser.add_argument('-d', '--dest', type=ext_check('.json'), default='./temp/test.json', help='Path to save stix bundle')
+    parser.add_argument('-i', '--interface', default='ens33', help='interface to use for pcap')
     parser.add_argument('-p.1', '--plugins.network.nmap', help='CIDR network to run nmap on')# this gets called no matter what..
     parser.add_argument('-p.2', '--plugins.network.sudo', action='store_true', default=False, help='run nmap as sudo, some TCP/IP fingerprinting requires this')
     parser.add_argument('-p.3', '--plugins.network.nmap_args', default=None, help='additional args for nmap')
-    parser.add_argument('-p.4', '--plugins.network.no_services', action='store_true', default=False, help='prevents the nmap plugin from adding services')
-    parser.add_argument('-p.5', '--plugins.pcap.file',  help='file to ingest for pcap plugin')
-    parser.add_argument('-p.6', '--plugins.cve', action='store_true', help='whether or not to run cve_search')
-    parser.add_argument('-p.7', '--plugins.remote.csv', help='csv cred file for remote information gathering')
+    parser.add_argument('-p.4', '--plugins.network.host_discovery', action='store_true', default=False, help='prevents the nmap plugin from adding services')
+    parser.add_argument('-p.5', '--plugins.network.no_services', action='store_true', default=False, help='prevents the nmap plugin from adding services')
+    parser.add_argument('-p.6', '--plugins.pcap.file',  help='file to ingest for pcap plugin')
+    parser.add_argument('-p.7', '--plugins.cve', action='store_true', help='whether or not to run cve_search')
+    parser.add_argument('-p.8', '--plugins.remote.csv', help='csv cred file for remote information gathering')
     parser.add_argument('--cfg', action=ActionConfigFile, help='Config file input')
 
     args = parser.parse_args()
@@ -56,7 +58,7 @@ if __name__ == "__main__":
         Handler.registerOutputDir(i)
     Handler.registerSTIXLoader(sl)
     Handler.registerLogger()
-    Handler.startPCAP()
+    Handler.startPCAP(interface=args.interface)
     logging.info('Creating plugin runner')
     pr = plugin_runner(args, sl)
     logging.info('Running on plugin runner')
