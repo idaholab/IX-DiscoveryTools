@@ -53,11 +53,12 @@ class OutputHandler:
     def startPCAP(self, interface='ens33'):
         self.f = TemporaryDirectory()
         self.pcap_path = os.path.join(self.f.name, 'capture.pcap')
-        self.cap = pyshark.LiveCapture(output_file=self.pcap_path , interface=interface)
+        self.cap = pyshark.LiveCapture(output_file=self.pcap_path , interface=interface, custom_parameters={'-B': '10000' })
         manager = Manager()
         self.done = manager.dict({'done': False})
         self.t = Process(target=worker, args=(self.cap, self.done))
         self.t.start()
+        sleep(5)
 
 
     def stopPCAP(self):

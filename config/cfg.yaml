@@ -2,13 +2,19 @@
 #   ./temp/empty.json
 # dest:
 #   ./temp/test_all.json
+# interface: ens37
 plugins:
   network:
     nmap: 192.168.27.2
+    # host_discovery: False
+    # no_services: True
+    # nmap_args: -p-
     # sudo: True
-  # pcap:
+  # pcap: path/to/file.pcap
 
-  # # cve: True
+  # cve: True
   # remote:
-  #   csv: ./temp/creds_win.csv
+  #   csv: something.csv
+  #   hardware: False
+  #   process: False
 

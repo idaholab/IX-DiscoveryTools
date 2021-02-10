@@ -32,10 +32,15 @@ class RemoteInfo:
             elif int(port) == 5986:
                 connector = PSConnectionSSL(ip, port, user=username, password=password)
             
+            types = []
+            if self.args.plugins.remote.hardware:
+                types.append('hardware')
+            if self.args.plugins.remote.process:
+                types.append('process')
             for commandgroup in CommandGroups:
                 commandgroup.register(connector)
                 if commandgroup.test():
-                    objs = commandgroup.run(infra)
+                    objs = commandgroup.run(infra, types)
                     self.stix_loader.merge(objs)
 
 

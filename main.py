@@ -42,6 +42,8 @@ if __name__ == "__main__":
     parser.add_argument('-p.6', '--plugins.pcap.file',  help='file to ingest for pcap plugin')
     parser.add_argument('-p.7', '--plugins.cve', action='store_true', help='whether or not to run cve_search')
     parser.add_argument('-p.8', '--plugins.remote.csv', help='csv cred file for remote information gathering')
+    parser.add_argument('-p.9', '--plugins.remote.process', default=True, help='Whether to run process gathering')
+    parser.add_argument('-p.10', '--plugins.remote.hardware', default=True, help='Whether to run hardware gathering')
     parser.add_argument('--cfg', action=ActionConfigFile, help='Config file input')
 
     args = parser.parse_args()

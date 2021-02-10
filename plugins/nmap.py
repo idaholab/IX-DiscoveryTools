@@ -4,6 +4,8 @@ from stix2 import Infrastructure, parse, Relationship, Bundle, Software, IPv6Add
 from util.helper import gen_uuid
 import logging
 from util.handler import Handler
+from tqdm import tqdm
+from time import sleep
 
 
 def mapper(d, obj):
@@ -105,10 +107,19 @@ class nmap:
     def run(self, sudo):
         if sudo == True:
             logging.info('Running scan as root')
-            self.nm.sudo_run(run_as='root')
+            self.nm.sudo_run_background(run_as='root')
         else:
             logging.info('Running scan without sudo')
-            self.nm.run()
+            self.nm.run_background()
+        total = 100
+        with tqdm(total=total, desc='Scanning') as pbar:
+            cur = 0
+            while self.nm.is_running():
+                new = float(self.nm.progress) - cur
+                pbar.update(new)
+                cur += new
+                sleep(.5)
+            pbar.update(total-cur)
 
         if self.nm.rc != 0:
             logging.critical('{self.nm.stderr}')
