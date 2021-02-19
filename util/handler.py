@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 import pyshark
 import logging
-from tempfile import TemporaryDirectory
+from tempfile import mkdtemp
 from multiprocessing import Process, Manager
 from time import sleep
 
@@ -46,13 +46,13 @@ class OutputHandler:
         self.output_active = True
     
     def OutputText(self, text, filename):
-        filename = filename.replace(' ', '_').replace('-', '_').replace(':', '_') # this is terrible
+        filename = filename.replace(' ', '_').replace('-', '_').replace(':', '_').replace('/', '_') # this is terrible
         with open(os.path.join(self.dir, filename), 'w') as f:
             f.write(text)
 
     def startPCAP(self, interface='ens33'):
-        self.f = TemporaryDirectory()
-        self.pcap_path = os.path.join(self.f.name, 'capture.pcap')
+        self.f = mkdtemp()
+        self.pcap_path = os.path.join(self.f, 'capture.pcap')
         self.cap = pyshark.LiveCapture(output_file=self.pcap_path , interface=interface, custom_parameters={'-B': '10000' })
         manager = Manager()
         self.done = manager.dict({'done': False})
@@ -60,15 +60,12 @@ class OutputHandler:
         self.t.start()
         sleep(5)
 
-
     def stopPCAP(self):
         self.cap.close()
         self.done['done'] = True
         sleep(10)
         self.t.terminate()
         os.rename(self.pcap_path, os.path.join(self.dir, 'capture.pcap'))
-        
-
 
     def writeMetadata(self):
         endtime = datetime.now()
@@ -79,6 +76,7 @@ class OutputHandler:
         self.stopPCAP()
         self.writeMetadata()
         self.stixoutput(name=self.dir_basename)
+        os.rmdir(self.f)
 
     def stixoutput(self, name=None):
         if not self.stix_loader:

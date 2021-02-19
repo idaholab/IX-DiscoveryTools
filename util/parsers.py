@@ -226,11 +226,6 @@ class DMIParser:
                 obj = self.create_object(processed_item)
                 l.append(obj)
                 l.append(self.link(infra_obj, obj))
-        
-        # (_, self.data[lines[0]]) = self.stack(self.count_prefix(lines[0]), lines[1:])
-        # (items_to_connect, objs) = self.to_stix()
-        # objs.extend(self.connect(items_to_connect, infra_obj))
-        # return objs
         return l
 
     def handle_header(self, lines):
@@ -248,7 +243,6 @@ class DMIParser:
         l = []
         last = 0
         for index, line in enumerate(k):
-            # print(line)
             if line == delimiter:
                 l.append(k[last:index])
                 last = index+1
@@ -268,17 +262,7 @@ class DMIParser:
         attribs = {}
         
         for key, value in data.items():
-            # if isinstance(value, dict):
-            #     (main_child, child_objs) = self.create_object(key, value)
-            #     objs.extend(child_objs)
-            #     objs_to_connect.append(main_child)
-            # if isinstance(value, str):
-                # attribs[f'x_{key}'] = value
             attribs[f'x_{key}'] = value
-            # else:
-            #     attribs[f'x_{key}'] = value
-            #     logging.warning(f'Weird type of {type(value)} created when parsing text')
-
         attribs['name'] = attribs['x_type']
 
         if 'x_Socket Designation' in attribs.keys():
@@ -343,3 +327,123 @@ class DMIParser:
 
     def count_prefix(self, line):
         return len(line) - len(line.lstrip('\t'))
+
+class CPUInfoParser:
+    def __init__(self):
+        pass
+
+    def split_header(self, lines):
+        header = []
+        for index, line in enumerate(lines):
+            if line == '':
+                return (header, lines[index+1:])
+            header.append(line) 
+        logging.error('Failed to parse dmicode, unable to find end of header')
+        return ([], [])
+
+    def parse(self, text, infra_obj):
+        lines = text.split('\n')
+        self.data = {}
+        lines = self.split_list(lines)
+        print(lines)
+        l = []
+        print(len(lines))
+        for item in lines:
+            print('hit')
+            processed_item = self.create_object(item)
+            print(f'processed_item: {processed_item}, {type(processed_item)}')
+            l.append(processed_item)
+            l.append(self.link(infra_obj, processed_item))
+        pprint(l)
+        return l
+
+    @staticmethod
+    def split_list(k, delimiter=''):
+        l = []
+        last = 0
+        for index, line in enumerate(k):
+            if line == delimiter:
+                l.append(k[last:index])
+                last = index+1
+            if index == len(k):
+                l.append(k[last:index+1])
+        if l[-1] == []:
+            l.pop(len(l)-1)
+        return l
+
+    def connect(self, items_to_connect, infra):
+        l = []
+        for item in items_to_connect:
+            l.append(Relationship(source_ref=infra, target_ref=item, relationship_type='has'))
+        return l
+
+    def create_object(self, data):
+        attribs = {}
+        print(f'data: {data}')
+        for v in data:
+            v = v.split(':')
+            key = v[0]
+            value = v[1]
+            attribs[f'x_{self.process_key(key)}'] = self.process_key(value) 
+
+        print(attribs)
+        attribs['name'] = f'processor #{attribs["x_processor"]}'
+        print(attribs)
+
+        attribs['id'] = gen_uuid('infrastructure')
+        hardware = Infrastructure(**attribs, allow_custom=True)
+
+        return hardware
+
+    @staticmethod
+    def link(src, dst, rel_type='related-to'):
+        return Relationship(source_ref=src, target_ref=dst, relationship_type=rel_type)
+
+    @staticmethod
+    def process_key(text):
+        text = text.lstrip().rstrip()
+        text = text.replace("\t", '')
+        prefix = '*-'
+        if text.startswith(prefix):
+            text = text[len(prefix):]
+        return  text
+    
+    def characteristics(self, main_count, lines):
+        l = []
+        processed = 0
+        next_count = self.count_prefix(lines[0])
+        for index, line in enumerate(lines):
+            processed += 1
+            if self.count_prefix(line) == next_count:
+                l.append(self.process_key(line))
+            else:
+                processed -= 1
+                break
+        return (processed, l)
+
+    def stack(self, main_count, lines):
+        l = {}
+        next_count = self.count_prefix(lines[0])
+        skipper = 0
+        processed = 0
+        for index, line in enumerate(lines):
+            processed += 1
+            if skipper > 0:
+                skipper -= 1
+                continue
+            elif 'Characteristics' in line:
+                (to_skip, l[self.process_key(line)]) = self.characteristics(self.count_prefix(line), lines[index+1:])
+                skipper += to_skip
+            elif self.count_prefix(line) == next_count:
+                sections = line.split(':', 1)
+                l[self.process_key(sections[0])] = sections[1].lstrip()
+            elif line == '':
+                continue
+            else:
+                processed -= 1
+                break
+        return (processed, l)
+
+    def count_prefix(self, line):
+        return len(line) - len(line.lstrip('\t'))
+        

@@ -18,6 +18,7 @@ bs4 = "^.0.1"
 paramiko = "^2.7.2"
 fabric = "^2.6.0"
 pypsrp = "^0.5.0"
+parse = "^1.19.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "2.6.0"

@@ -1,5 +1,6 @@
-from util.parsers import MainParser, ProcessParser, InfraParser
+from util.parsers import MainParser, ProcessParser, InfraParser, DMIParser, CPUInfoParser
 from util.handler import Handler
+import logging
 
 class Command:
     def __init__(self, cmd, parser, sudo=False, proc_type=None):
@@ -36,14 +37,15 @@ class CommandGroup:
                 print('skipping')
                 continue
             try:
+                logging.info(f'Running: {command.cmd}')
                 result = self.connector.runcommmand(command.cmd, sudo=command.sudo)
                 if result.exited == 0:
                     output = result.stdout
                     if Handler.output_active:
                         Handler.OutputText(output, f'{command.cmd}.txt')
                     objs.extend(command.parse(output, infra_obj))
-            except:
-                pass
+            except Exception as e:
+                logging.warn(f'{e}')
         return objs
         
     def register(self, connector):
@@ -51,7 +53,9 @@ class CommandGroup:
 CommandGroups = []
 c = CommandGroup('true')
 c.add(Command('lshw', MainParser(), sudo=True, proc_type='hardware'))
-c.add(Command('ps -A -l', ProcessParser(), sudo=True,  proc_type='process'))
+c.add(Command('dmidecode', DMIParser(), sudo=True, proc_type='hardware'))
+# c.add(Command('cat /proc/cpuinfo', CPUInfoParser(), sudo=True, proc_type='hardware'))
+c.add(Command('ps -A -l', ProcessParser(), sudo=True, proc_type='process'))
 CommandGroups.append(c)
 c = CommandGroup('Write-Host True')
 c.add(Command('wmic process list full /format:csv', ProcessParser(delimter=','), proc_type='process'))
