@@ -449,8 +449,8 @@ if __name__ == "__main__":
 
 
     c = cve_searcher()
-    vuln_cves = c.search(vendor='openbsd', product='openssh', cpe_version='2.3', version='4.7p1')
-    # vuln_cves = c.search(**args)
+    # vuln_cves = c.search(vendor='openbsd', product='openssh', cpe_version='2.3', version='4.7p1')
+    vuln_cves = c.search(**args)
 
 
     if json_flag:
