@@ -162,6 +162,21 @@ class ProcessParser:
     def link(src, dst, rel_type='related-to'):
         return Relationship(source_ref=src, target_ref=dst, relationship_type=rel_type)
 
+    def connect(self, items, infra_obj):
+        l = []
+        d = {}
+        for item in items:
+            d[item.pid] = item
+    
+        for item in items:
+            if hasattr(item, 'x_PPID'):
+                ppid = int(item.x_PPID)
+                if ppid in d.keys():
+                    l.append(self.link(d[ppid], item))
+                    continue
+                l.append(self.link(infra_obj, item))
+        return l
+
     def parse(self, text, infra_obj):
         l = []
         lines = text.split('\n')
@@ -177,8 +192,9 @@ class ProcessParser:
                 continue
             obj = self.create_object(items)
             l.append(obj)
-            rel = self.link(infra_obj, obj)
-            l.append(rel)
+            # rel = self.link(infra_obj, obj)
+            # l.append(rel)
+        l.extend(self.connect(l, infra_obj))
         return l
 
     def create_object(self, items):

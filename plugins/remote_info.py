@@ -25,12 +25,17 @@ class RemoteInfo:
             
             (username, password) = cred_fetcher.get_creds(ip, port)
 
+            connector = None
             if int(port) == 22:
                 connector = SSHConnectionFabric(ip, port, user=username, password=password)
             elif int(port) == 5985:
                 connector = PSConnection(ip, port, user=username, password=password)
             elif int(port) == 5986:
                 connector = PSConnectionSSL(ip, port, user=username, password=password)
+
+            if connector is None:
+                logging.error('No valid connector created!!! Remote Info plugin Failed')
+                return None
             
             types = []
             if self.args.plugins.remote.hardware:
