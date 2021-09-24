@@ -96,7 +96,7 @@ func main() {
 		log.Println("Error marshaling bundle:", err)
 	}
 
-	err = ioutil.WriteFile("forensix-bundle.json", data, 0777)
+	err = ioutil.WriteFile("forensix-bundle.json", data, 0600)
 	if err != nil {
 		log.Fatalln(err)
 	} else {
@@ -173,7 +173,9 @@ func vol2Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(deviceSDO)
+	if collection.Add(deviceSDO); err != nil {
+		log.Println(err)
+	}
 
 	operatingSystemSCO, err := stix2.NewSoftware(
 		b1.OperSys,
@@ -181,13 +183,17 @@ func vol2Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(operatingSystemSCO)
+	if collection.Add(operatingSystemSCO); err != nil {
+		log.Println(err)
+	}
 
 	kernelSCO, err := stix2.NewSoftware(
 		"Kernel",
 		stix2.OptionVersion(b1.Kernel),
 	)
-	collection.Add(kernelSCO)
+	if collection.Add(kernelSCO); err != nil {
+		log.Println(err)
+	}
 
 	deviceOSRel, err := stix2.NewRelationship(
 		"has",
@@ -197,7 +203,9 @@ func vol2Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(deviceOSRel)
+	if collection.Add(deviceOSRel); err != nil {
+		log.Println(err)
+	}
 
 	osKernelRel, err := stix2.NewRelationship(
 		"has",
@@ -207,7 +215,9 @@ func vol2Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(osKernelRel)
+	if collection.Add(osKernelRel); err != nil {
+		log.Println(err)
+	}
 
 	//****************************
 	//Process pslist
@@ -275,7 +285,9 @@ func vol2Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(fileSCO)
+		if collection.Add(fileSCO); err != nil {
+			log.Println(err)
+		}
 
 		//Process SCO for pid
 		processSCO, err := stix2.NewProcess(
@@ -284,7 +296,9 @@ func vol2Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(processSCO)
+		if collection.Add(processSCO); err != nil {
+			log.Println(err)
+		}
 		/*
 			//user SDO
 			user_sdo, err := stix2.NewUserAccount(
@@ -313,7 +327,9 @@ func vol2Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(fileProcessRel)
+		if collection.Add(fileProcessRel); err != nil {
+			log.Println(err)
+		}
 
 		osFileRel, err := stix2.NewRelationship(
 			"has",
@@ -323,7 +339,9 @@ func vol2Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(osFileRel)
+		if collection.Add(osFileRel); err != nil {
+			log.Println(err)
+		}
 
 	}
 }
@@ -389,7 +407,9 @@ func vol3Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(deviceSDO)
+	if collection.Add(deviceSDO); err != nil {
+		log.Println(err)
+	}
 
 	operatingSystemSCO, err := stix2.NewSoftware(
 		b1.OperSys,
@@ -398,13 +418,17 @@ func vol3Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(operatingSystemSCO)
+	if collection.Add(operatingSystemSCO); err != nil {
+		log.Println(err)
+	}
 
 	kernelSCO, err := stix2.NewSoftware(
 		"Kernel",
 		stix2.OptionVersion(b1.Kernel),
 	)
-	collection.Add(kernelSCO)
+	if collection.Add(kernelSCO); err != nil {
+		log.Println(err)
+	}
 
 	deviceOSRel, err := stix2.NewRelationship(
 		"has",
@@ -414,7 +438,9 @@ func vol3Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(deviceOSRel)
+	if collection.Add(deviceOSRel); err != nil {
+		log.Println(err)
+	}
 
 	osKernelRel, err := stix2.NewRelationship(
 		"has",
@@ -424,7 +450,9 @@ func vol3Linux(b []string, p []string) {
 	if err != nil {
 		log.Println(err)
 	}
-	collection.Add(osKernelRel)
+	if collection.Add(osKernelRel); err != nil {
+		log.Println(err)
+	}
 
 	//****************************
 	//Process pslist
@@ -475,7 +503,9 @@ func vol3Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(fileSCO)
+		if collection.Add(fileSCO); err != nil {
+			log.Println(err)
+		}
 
 		//Process SCO for pid
 		processSCO, err := stix2.NewProcess(
@@ -484,7 +514,9 @@ func vol3Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(processSCO)
+		if collection.Add(processSCO); err != nil {
+			log.Println(err)
+		}
 
 		fileProcessRel, err := stix2.NewRelationship(
 			"created_by",
@@ -494,7 +526,9 @@ func vol3Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(fileProcessRel)
+		if collection.Add(fileProcessRel); err != nil {
+			log.Println(err)
+		}
 
 		osFileRel, err := stix2.NewRelationship(
 			"has",
@@ -504,7 +538,9 @@ func vol3Linux(b []string, p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(osFileRel)
+		if collection.Add(osFileRel); err != nil {
+			log.Println(err)
+		}
 
 	}
 }
@@ -580,7 +616,9 @@ func vol3Win(p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(operatingSystemSCO)
+		if collection.Add(operatingSystemSCO); err != nil {
+			log.Println(err)
+		}
 
 		//File SCO for name
 		fileSCO, err := stix2.NewFile(
@@ -590,7 +628,9 @@ func vol3Win(p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(fileSCO)
+		if collection.Add(fileSCO); err != nil {
+			log.Println(err)
+		}
 
 		//Process SCO for pid
 		processSCO, err := stix2.NewProcess(
@@ -599,7 +639,9 @@ func vol3Win(p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(processSCO)
+		if collection.Add(processSCO); err != nil {
+			log.Println(err)
+		}
 
 		fileProcessRel, err := stix2.NewRelationship(
 			"created_by",
@@ -609,7 +651,9 @@ func vol3Win(p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(fileProcessRel)
+		if collection.Add(fileProcessRel); err != nil {
+			log.Println(err)
+		}
 
 		osFileRel, err := stix2.NewRelationship(
 			"has",
@@ -619,7 +663,9 @@ func vol3Win(p []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		collection.Add(osFileRel)
+		if err = collection.Add(osFileRel); err != nil {
+			log.Println(err)
+		}
 
 	}
 
