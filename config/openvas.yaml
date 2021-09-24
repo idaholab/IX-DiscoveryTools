@@ -1,0 +1,27 @@
+#Copyright 2021, Battelle Energy Alliance, LLC
+# file:
+#   ./temp/empty.json
+# dest:
+#   ./temp/output.json
+# interface: ens37
+plugins:
+  # network:
+    # nmap: 127.0.0.1
+    # sudo: False
+    # nmap_args: -Pn
+    # no_host_discovery: False
+    # no_services: True
+    # do_not_resolve_hosts: True
+  # pcap:
+  #   file: /tmp/file.pcap
+  # cve: True
+  # remote:
+  #   csv: creds.csv
+  #   process: False
+  #   hardware: True
+  #   filetree: False
+  #   directory: /etc
+  openvas:
+    host: 172.16.2.131
+    username: admin
+    password: admin

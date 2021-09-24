@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "autodiscover"
+version = "1.0.0"
+description = ""
+authors = ["Michael Cutshaw <michael.cutshaw@inl.gov>", "Zachary Priest <zachary.priest@inl.gov>", "Manuel Vazquez <manuel.vazquez@inl.gov>", "Greer Galloway <greer.galloway@inl.gov>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+argparse = "^1.4.0"
+stix2 = "^2.1.0"
+python-libnmap = "^0.7.2"
+stix2_validator = "^2.0.4"
+jsonargparse = "^3.1.0"
+pyshark = "^0.4.2"
+packaging = "^20.8"
+tqdm = "^4.56.0"
+bs4 = "^.0.1"
+paramiko = "^2.7.2"
+fabric = "^2.6.0"
+pypsrp = "^0.5.0"
+parse = "^1.19.0"
+python-gvm = "==21.6.0"
+docker = "^5.0.0"
+scapy = "^2.4.5"
+
+[tool.poetry.dev-dependencies]
+pylint = "2.6.0"
+autopep8 = "^1.5.7"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

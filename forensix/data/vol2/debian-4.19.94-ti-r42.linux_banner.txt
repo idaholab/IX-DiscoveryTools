@@ -1,0 +1,1 @@
+Linux version 4.19.94-ti-r42 (voodoo@x3-am57xx-beagle-x15-2gb) (gcc version 8.3.0 (Debian 8.3.0-6)) #1buster SMP PREEMPT Tue Mar 31 19:38:29 UTC 2020

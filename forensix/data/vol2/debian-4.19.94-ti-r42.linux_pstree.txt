@@ -1,0 +1,89 @@
+Name                 Pid             Uid            
+systemd              1                              
+.systemd-journal     726                            
+.systemd-udevd       742                            
+.haveged             749                            
+.systemd-logind      762                            
+.dbus-daemon         763             104            
+.connmand            766                            
+.wpa_supplicant      767                            
+.rsyslogd            768                            
+.cron                769                            
+.avahi-daemon        770             107            
+..avahi-daemon       775             107            
+.nodejs              771                            
+.agetty              866                            
+.sshd                871                            
+..sshd               1645                           
+...sshd              1660            1000           
+....bash             1661            1000           
+.....sudo            1719                           
+......insmod         1720                           
+.nginx               911                            
+..nginx              912             33             
+.agetty              1023                           
+.dnsmasq             1031            105            
+.alsactl             1567                           
+.agetty              1570                           
+.systemd             1648            1000           
+..(sd-pam)           1649            1000           
+[kthreadd]           2                              
+.[rcu_gp]            3                              
+.[rcu_par_gp]        4                              
+.[kworker/u2:0]      7                              
+.[mm_percpu_wq]      8                              
+.[ksoftirqd/0]       9                              
+.[rcu_preempt]       10                             
+.[rcu_sched]         11                             
+.[rcu_bh]            12                             
+.[migration/0]       13                             
+.[cpuhp/0]           14                             
+.[kdevtmpfs]         15                             
+.[netns]             16                             
+.[rcu_tasks_kthre]   17                             
+.[kworker/0:1]       18                             
+.[kauditd]           19                             
+.[khungtaskd]        20                             
+.[oom_reaper]        21                             
+.[writeback]         22                             
+.[kcompactd0]        23                             
+.[ksmd]              24                             
+.[crypto]            25                             
+.[kintegrityd]       26                             
+.[kblockd]           27                             
+.[ata_sff]           28                             
+.[irq/37-4802a000]   29                             
+.[irq/38-4819c000]   30                             
+.[devfreq_wq]        31                             
+.[watchdogd]         32                             
+.[rpciod]            33                             
+.[kworker/u3:0]      34                             
+.[xprtiod]           35                             
+.[kswapd0]           36                             
+.[nfsiod]            37                             
+.[kthrotld]          72                             
+.[kapmd]             73                             
+.[hwrng]             74                             
+.[irq/143-4806000]   76                             
+.[kworker/0:2]       77                             
+.[mmc_complete]      79                             
+.[mmc_complete]      81                             
+.[spi0]              82                             
+.[spi1]              83                             
+.[53500000.aes-en]   85                             
+.[ion_system_heap]   99                             
+.[irq/59-TI-am335]   100                            
+.[irq/64-48038000]   101                            
+.[irq/63-48038000]   102                            
+.[ipv6_addrconf]     103                            
+.[irq/36-44e0b000]   112                            
+.[irq/147-tps6521]   113                            
+.[kworker/u2:2]      680                            
+.[jbd2/mmcblk0p1-]   692                            
+.[ext4-rsv-conver]   693                            
+.[ptp0]              829                            
+.[file-storage]      999                            
+.[kworker/0:0H]      1678                           
+.[kworker/0:2H]      1682                           
+.[kworker/0:0]       1706                           
+.[kworker/0:1H]      1713                           
