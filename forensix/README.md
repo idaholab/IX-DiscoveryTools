@@ -1,6 +1,6 @@
 ![forenstix](/forensix/img/21-50495_mastheads_R1_ForensIX.png)
 
-ForensIX is an Golang application created on an internal Infrastructure eXpression (IX) project that converts Volatility process listing files into [Structured Threat Information Expression (STIX)](https://oasis-open.github.io/cti-documentation/stix/intro.html) v2.1 bundles. The results from ForenSTIX can be viewed in the [Structured Threat Intelligence Graph (STIG)](https://github.com/idaholab/STIG) application.
+ForensIX is an Golang application created on an internal Infrastructure eXpression (IX) project that converts Volatility process listing files into [Structured Threat Information Expression (STIX)](https://oasis-open.github.io/cti-documentation/stix/intro.html) v2.1 bundles. The results from ForensIX can be viewed in the [Structured Threat Intelligence Graph (STIG)](https://github.com/idaholab/STIG) application.
 
 ![stigView](/forensix/img/sample_linux_arm_vol2.png)
 
@@ -51,11 +51,14 @@ Example ussage with Volatility3 test files:
 Sample Volatility output files are in the `./test/vol2` and `./test/vol3` directories for Volatility v2 and Volatility v3 respectively. 
 
 **debian-4.19.94.ti-r42:** pslist and banner files from a Beaglebone Black development board.
+
 **ubuntu-4.4.0-186-generic:** pslist and banner files from a Ubuntu 18.04 machine.
+
 **win-10.0.19041:** pslist file from a Windows 10 (19041 build) machine.
 
+
 # Application Status and Future Work
-The following ocnfigurations are working:
+The following configurations are working:
 - [x] Volatility 2 Linux banners and pslist .txt files
 - [ ] Volatility 2 Windows banners and pslist .txt files
 - [x] Volatility 3 Linux banners and pslist .txt files
