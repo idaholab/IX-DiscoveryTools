@@ -37,6 +37,7 @@ func main() {
 	bannerFile.Close()
 
 	volPtrValue := *volPtr
+	osPtrValue := *osPtr
 
 	if volPtrValue == 2 {
 		log.Println("Volatility 2")
@@ -48,15 +49,21 @@ func main() {
 
 	// Process pslists and banners
 	if *osPtr == "linux" {
-		log.Println("Processing Linux files.")
+		log.Println("Processing Linux files...")
 		volatility.VolLinux(bannerString, pslistString, volPtrValue)
 	} else if *osPtr == "win" {
-		log.Println("Processing Windows files.")
+		log.Println("Processing Windows files...")
 		log.Println("ForensIX does not support Windows banners at this time. Processing pslist ..... ")
 		volatility.VolWin(pslistString, volPtrValue)
 	} else {
 		log.Fatalln("Please select an OS version for the target machine")
 	}
+
+	// find parent processes
+	if volatility.FindPPID(pslistString, volPtrValue, osPtrValue); err != nil {
+		log.Println(err)
+	}
+
 	//Prep bundle to write to file
 	bundle, err := utils.Collection.ToBundle()
 	if err != nil {
