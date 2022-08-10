@@ -14,5 +14,5 @@ fi
 sudo apt install git python3-venv python3-pip nmap git-lfs -y
 git lfs install
 GIT_SSL_NO_VERIFY=true git lfs pull --exclude=""
-sh -c "cd openvas && sudo ./import.sh && sudo ./run.sh && cd .."
+sh -c "cd autodiscover/openvas && sudo ./import.sh && sudo ./run.sh && cd .."
 

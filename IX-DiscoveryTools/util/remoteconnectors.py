@@ -46,25 +46,17 @@ class SSHConnectionFabric(RemoteConnection):
         """
         Executes a command over SSH using fabric.
         """
-        try:
-            if sudo:
-                try:
-                    command_obj = self.client.sudo(cmd, hide=True, password=self.password, pty=True)
-                    command_obj.stdout = command_obj.stdout.replace('\r', '')
-                    return command_obj
-                except Exception as e:
-                    logging.exception(e)
-                    logging.warning('sudo failed, re-trying without!')
-                    return self.client.run(cmd, hide=True)
-            else:
-                try:
-                    return self.client.run(cmd, hide=True)
-                except Exception as e:
-                    #logging.exception(e)
-                    logging.warning(f'Command {cmd} not on device, skipping')
-        except Exception as e:
-            logging.warning(f'Command {cmd} not on device, skipping')
-            #logging.exception(e)
+        if sudo:
+            try:
+                command_obj = self.client.sudo(cmd, hide=True, password=self.password, pty=True)
+                command_obj.stdout = command_obj.stdout.replace('\r', '')
+                return command_obj
+            except Exception as e:
+                logging.exception(e)
+                logging.warning('sudo failed, re-trying without!')
+                return self.client.run(cmd, hide=True)
+        else:
+            return self.client.run(cmd, hide=True)
 
     def listen(self):
         """
