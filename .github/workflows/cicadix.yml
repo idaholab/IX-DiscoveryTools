@@ -5,13 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: install
+      - name: install and run bandit
         run: |
           sudo apt install python3 python3-pip git -y
           python3 -V  # Print out python version for debugging
           python3 -m pip install poetry
           poetry install
-      - uses: actions/checkout@v3
-      - name: bandit
-        run: |
+          pwd
           poetry run python3 -m bandit  -r *.py
