@@ -53,14 +53,11 @@ class stix_loader:
         d = {"type": "bundle",
           "id": gen_uuid('bundle'),
           "objects": [item for item in self.ms_source.query()]}
-        try:
-            with open(path, 'w') as f:
-                json.dump(d, f, cls=STIXJSONEncoder)
-            logging.info('Finished save to file')
-        except Exception as e:
-            #logging.exception(e)
-            logging.warn(f"Error in file write process to {path}, does it exist?")
-    
+
+        with open(path, 'w') as f:
+            json.dump(d, f, cls=STIXJSONEncoder)
+        logging.info('Finished save to file')
+
     def get_sink_data(self):
         return self.ms.sink._data
 

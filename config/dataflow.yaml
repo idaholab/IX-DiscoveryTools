@@ -5,15 +5,16 @@
 #   ./temp/output.json
 # interface: ens37
 plugins:
-  network:
-    nmap: 127.0.0.1
+        #network:
+          #nmap: 127.0.0.1
     # sudo: False
     # nmap_args: -Pn
-    no_host_discovery: True
-    no_services: False
+    #no_host_discovery: True
+    #  no_services: False
     # do_not_resolve_hosts: True
   pcap:
-    file: /tmp/file.pcap
+    file: /location/of/pcap
+    enhanced: True
   # cve: True
   # remote:
   #   csv: creds.csv

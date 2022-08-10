@@ -20,7 +20,7 @@ from stix2 import Vulnerability, ExternalReference
 
 
 def download_zip(src_url, dst):
-    r = requests.get(src_url, allow_redirects=True, verify=False)
+    r = requests.get(src_url, allow_redirects=True)
     with ZipFile(BytesIO(r.content)) as z:
         with z.open(z.namelist()[0]) as f:
             open(dst, 'wb').write(f.read())
@@ -28,7 +28,7 @@ def download_zip(src_url, dst):
     #open(dst, 'wb').write(data_to_write)
 
 def download_text(src_url):
-    r = requests.get(src_url, allow_redirects=True, verify=False)
+    r = requests.get(src_url, allow_redirects=True)
     return r.text
 
 def prune_to_year(string):
@@ -214,9 +214,12 @@ class cpe:
         return True
 
     def match(self,**kwargs):
-        for item in kwargs: 
-            if item == 'vendor':
-                return True
+        for item in kwargs:
+            if kwargs[item] == None:
+                # if item == 'version':
+                #     return False
+                continue
+            
             if item == 'version':
                 if self._regex_version_range(**kwargs):
                     pass
@@ -233,12 +236,8 @@ class cpe:
                     elif 'versionEndExcluding' in self.filters.keys():
                         if LegacyVersion(self.filters['versionEndExcluding']) <= LegacyVersion(kwargs[item]):
                             return False
-                if kwargs[item] == None and len(self.filters) == 0:
-                    return False
             elif kwargs[item] is None:
                 continue
-            # if kwargs[item] == None:
-            #         return False
             try:
                 if item == 'cpe':
                     if kwargs['cpe'] in self.data['cpe23Uri']:
@@ -266,58 +265,16 @@ class cve_searcher:
         self.my_dir = os.path.dirname(__file__)
         self.data_dir = os.path.join(self.my_dir, 'cve_data')
         self.db_file = os.path.join(self.data_dir, 'db.json')
-        self.db_fullpath = os.path.join(self.data_dir, self.db_file)
 
-        if not self.check_dir():
+        if not self.check_if_loaded():
             self._init_dirs()
             self.init_db()
             self.load()
-        
-
-        elif not self.check_file():
-            self.init_db()
-            self.load()
-        
         self.data_files = self.get_data_files()
-    
-    # def check_if_loaded(self):
-    #     if os.path.isdir(self.data_dir):
-    #         if os.path.isfile(self.db_fullpath):
-    #             try:
-    #                 with open(self.db_fullpath, 'r') as f:
-    #                     somethubg = json.load(f)
-    #                     if len(list(somethubg.keys())) > 0:
-    #                         return True
-    #                     else: 
-    #                         os.remove(self.db_fullpath)
-    #                         return False
-    #             except Exception as e:
-    #                 os.remove(self.db_fullpath)
-    #                 logging.debug(e)
-    #                 return False
 
-    #             return True
-    #     return False
-
-    def check_dir(self):
+    def check_if_loaded(self):
         if os.path.isdir(self.data_dir):
             return True
-        return False
-
-    def check_file(self):
-        if os.path.isfile(self.db_fullpath):
-                try:
-                    with open(self.db_fullpath, 'r') as f:
-                        somethubg = json.load(f)
-                        if len(list(somethubg.keys())) > 0:
-                            return True
-                        else: 
-                            os.remove(self.db_fullpath)
-                            return False
-                except Exception as e:
-                    os.remove(self.db_fullpath)
-                    logging.debug(e)
-                    return False
         return False
 
     def load(self):
@@ -357,11 +314,11 @@ class cve_searcher:
     def get_db(self):
         with open(self.db_file, 'r') as f:
             data = json.load(f)
-        return data 
+        return data
 
     def get_file_urls(self):
         url = 'https://nvd.nist.gov/vuln/data-feeds'
-        r = requests.get(url, verify=False)
+        r = requests.get(url)
         soup = BeautifulSoup(r.text, features="html.parser")
         a = soup.find(lambda x: x.name == 'a' and 'NVD JSON' in str(x.string))
         table = a.parent.parent.parent.parent
@@ -454,7 +411,7 @@ class cve_searcher:
             # print(self.data_dir)
             os.mkdir(self.data_dir)
         except OSError as exec:
-            if exec.errno != errno.EEXIST:
+            if exc.errno != errno.EEXIST:
                 raise
             pass
 
