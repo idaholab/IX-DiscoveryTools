@@ -22,6 +22,7 @@ parse = "^1.19.0"
 python-gvm = "==21.6.0"
 docker = "^5.0.0"
 scapy = "^2.4.5"
+bandit = "^1.7.4"
 
 [tool.poetry.dev-dependencies]
 pylint = "2.6.0"
