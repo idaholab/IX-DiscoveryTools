@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: install
         run: |
-          apt install python3 python3-pip git -y
+          sudo apt install python3 python3-pip git -y
           python3 -V  # Print out python version for debugging
           python3 -m pip install poetry
           poetry install
